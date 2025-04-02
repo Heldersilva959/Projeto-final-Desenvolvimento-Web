@@ -61,11 +61,8 @@
 <body>
     <h1>BOLETIM GERAL DOS ALUNOS</h1>
     <br> <br> 
-</body>
-
-</html>
-
-<?php
+    <div>
+    <?php
 include("conexao.php");
 session_start();
 $sql = "SELECT alunos.matricula, 
@@ -132,3 +129,12 @@ if ($consulta) {
 mysqli_close($connection);
 
 ?>
+    </div>
+    <br> <br>
+    <div style="text-align: center;">
+        <button onclick="window.location.href='professor.php'">Voltar</button>
+    </div>
+</body>
+
+</html>
+

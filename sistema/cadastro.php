@@ -116,6 +116,22 @@ mysqli_close($connection);
         #submit:hover {
             background-color: deepskyblue;
         }
+        button {
+            background-color: dodgerblue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: deepskyblue;
+        }
     </style>
 </head>
 <body>
@@ -141,6 +157,9 @@ mysqli_close($connection);
 
         <input type="submit" name="submit" id="submit">
     </form>
+    <div style="text-align: center;">
+        <button onclick="window.location.href='professor.php'">Voltar</button>
+    </div>
 </body>
 </html>
 

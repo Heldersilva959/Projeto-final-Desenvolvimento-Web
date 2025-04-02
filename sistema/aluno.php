@@ -26,14 +26,28 @@ if (!isset($_SESSION['aluno_id'])) {
         th {
             background-color: #f2f2f2;
         }
+        button {
+            background-color: dodgerblue;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #1e90ff;
+        }
     </style>
 </head>
 <body>
     <H1> BOLETIM DO ALUNO:   </H1>
-</body>
-</html>
-
-<?php
+    <div>
+    <?php
 include("conexao.php");
 
 $aluno_id = $_SESSION['aluno_id'];
@@ -90,4 +104,13 @@ if ($consulta) {
 // Fechando a conexão
 mysqli_close($connection);
 ?>
+
+    </div>
+<br><br>
+<div style="text-align: center;">
+        <button onclick="window.location.href='logout.php'">Voltar</button>
+    </div>
+</body>
+</html>
+
 
