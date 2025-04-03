@@ -70,21 +70,21 @@ mysqli_close($connection);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Aluno</title>
     <style>
-        body {
+        .body-cadastro {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             color: #333;
             margin: 0;
             padding: 0;
         }
-        h1 {
+        .h1-cadastro {
             background-color: rgb(0, 0, 0);
             color: white;
             padding: 10px;
             text-align: center;
             margin: 0;
         }
-        form {
+        .form-cadastro {
             max-width: 600px;
             margin: 30px auto;
             padding: 20px;
@@ -92,11 +92,11 @@ mysqli_close($connection);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        label {
+        .label-cadastro {
             display: block;
             margin-bottom: 8px;
         }
-        input[type="text"], input[type="email"], input[type="number"], input[type="password"] {
+        .input-cadastro[type="text"], input[type="email"], input[type="number"], input[type="password"] {
             width: 100%;
             padding: 8px;
             margin-bottom: 20px;
@@ -116,7 +116,7 @@ mysqli_close($connection);
         #submit:hover {
             background-color: deepskyblue;
         }
-        button {
+        .button-cadastro {
             background-color: dodgerblue;
             color: white;
             border: none;
@@ -134,31 +134,31 @@ mysqli_close($connection);
         }
     </style>
 </head>
-<body>
-<h1>Cadastrar Novo Aluno</h1>
-    <form action="cadastro.php" method="post">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+<body class="body-cadastro">
+<h1 class="h1-cadastro">Cadastrar Novo Aluno</h1>
+    <form class="form-cadastro" action="cadastro.php" method="post">
+        <label class="label-cadastro" for="nome">Nome:</label>
+        <input class="input-cadastro" type="text" id="nome" name="nome" required>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <label class="label-cadastro" for="email">Email:</label>
+        <input class="input-cadastro" type="email" id="email" name="email" required>
 
-        <label for="idade">Idade:</label>
-        <input type="number" id="idade" name="idade" required>
+        <label class="label-cadastro" for="idade">Idade:</label>
+        <input class="input-cadastro"  type="number" id="idade" name="idade" required>
 
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" required>
+        <label class="label-cadastro" for="cpf">CPF:</label>
+        <input class="input-cadastro"  type="text" id="cpf" name="cpf" required>
 
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
+        <label class="label-cadastro" for="senha">Senha:</label>
+        <input class="input-cadastro"  type="password" id="senha" name="senha" required>
 
-        <label for="matricula">Matrícula:</label>
-        <input type="text" id="matricula" name="matricula" required>
+        <label class="label-cadastro" for="matricula">Matrícula:</label>
+        <input class="input-cadastro"  type="text" id="matricula" name="matricula" required>
 
         <input type="submit" name="submit" id="submit">
     </form>
     <div style="text-align: center;">
-        <button onclick="window.location.href='professor.php'">Voltar</button>
+        <button class="button-cadastro" onclick="window.location.href='professor.php'">Voltar</button>
     </div>
 </body>
 </html>

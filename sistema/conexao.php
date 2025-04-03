@@ -1,14 +1,26 @@
 <?php
-$hostname = "localhost";
-$bancodedados = "sistema_esc";
-$usuario = "root";
-$senha = "";
+// endereco
+// nome do BD
+// usuario
+// senha
 
-// conectando:
+$endereco = 'localhost';
+$banco = 'sistema_esc';
+$usuario = 'postgres';
+$senha = '123';
 
-$connection = mysqli_connect($hostname, $usuario, $senha, $bancodedados);
-if (!$connection) { //condição de falha
-    die("Falha na conexão: " . mysqli_connect_errno() . " - " . mysqli_connect_error()); // mostrando cod do erro e erro
+try {
+  // sgbd:host;port;dbname
+  // usuario
+  // senha
+  // errmode
+  $pdo = new PDO("pgsql:host=$endereco;port=5432;dbname=$banco", $usuario, $senha, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
+  //echo "Conectado no banco de dados!!!";
+
+} catch (PDOException $e) {
+  echo "Falha ao conectar ao banco de dados. <br/>";
+  die($e->getMessage());
 }
 
-
+?>
