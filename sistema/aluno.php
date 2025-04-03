@@ -52,19 +52,7 @@ include("conexao.php");
 
 $aluno_id = $_SESSION['aluno_id'];
 
-$sql = "SELECT 
-    alunos.matricula, 
-    usuarios.nome AS aluno, 
-    disciplinas.nome AS disciplina, 
-    notas.nota, 
-    notas.dataL
-FROM 
-    notas
-INNER JOIN alunos ON notas.fk_aluno = alunos.id
-INNER JOIN usuarios ON alunos.fk_user = usuarios.id
-INNER JOIN disciplinas ON notas.fk_disc = disciplinas.id
-WHERE 
-    alunos.id = '$aluno_id' " ;
+$sql = "select * from view_notas_aluno where aluno_id = $aluno_id"; ;
 
 $consulta = mysqli_query($connection, $sql); 
 
