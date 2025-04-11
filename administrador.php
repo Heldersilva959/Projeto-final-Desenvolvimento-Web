@@ -3,7 +3,7 @@ include_once("conexao.php");
 session_start();
 if (!isset($_SESSION['admin_id'])) {
     
-    header("Location: login1.php");
+    header("Location: index.html");
 }
 ?>
 
@@ -78,7 +78,7 @@ if (!isset($_SESSION['admin_id'])) {
         <button type="submit">Gerar Relatório</button>
     </form>
 
-    <form action="index.php" method="post">
+    <form action="index.html" method="post">
         <button type="submit">Deslogar</button> 
     </form>
 </body>

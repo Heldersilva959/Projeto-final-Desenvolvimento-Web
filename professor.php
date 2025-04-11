@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['prof_id'])) {
     
-    header("Location: login1.php");
+    header("Location: index.html");
 }
 ?>
 
@@ -65,7 +65,7 @@ if (!isset($_SESSION['prof_id'])) {
     <form action="cadastro.php" method="post">
         <button type="submit">Cadastrar Novos Alunos</button> 
     </form>
-    <form action="index.php" method="post">
+    <form action="index.html" method="post">
         <button type="submit">Deslogar</button> 
     </form>
 </body>

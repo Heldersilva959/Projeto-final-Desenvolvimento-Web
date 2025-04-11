@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION['aluno_id'])) {
-    header("Location: login1.php");
+    header("Location: index.html");
 }
 ?>
 
@@ -112,9 +112,9 @@ mysqli_close($connection);
 
     </div>
 <br><br>
-<div style="text-align: center;">
-        <button onclick="window.location.href='logout.php'">Voltar</button>
-    </div>
+<form action="index.html" method="post">
+        <button type="submit">Deslogar</button> 
+    </form>
 </body>
 </html>
 
