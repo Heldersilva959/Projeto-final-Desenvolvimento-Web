@@ -22,5 +22,4 @@ try {
   echo "Falha ao conectar ao banco de dados. <br/>";
   die($e->getMessage());
 }
-
 ?>
