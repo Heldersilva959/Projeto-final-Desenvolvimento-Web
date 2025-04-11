@@ -25,28 +25,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['aluno_id'] = $aluno['id']; // Guarda ID do aluno na sessão
             header("Location: aluno.php?aluno_id=". $aluno['id']);// envia para pagina do aluno
             }
-            else
-            echo "Erro ao encontrar o ID do aluno.";
+           
             
-        } elseif ($user['tipo'] === 'Professor') {
+         elseif ($user['tipo'] === 'Professor') {
             $_SESSION['prof_id'] = $user['id']; //Guarda ID do professor
             header("Location: professor.php?prof_id=". $user['id']);// envia para pagina do prof
         }
-    } elseif ($user['tipo'] === 'Administrador') {
-        $_SESSION['admin_id'] = $user['id']; //Guarda ID do professor
-        header("Location: professor.php?admin_id=". $user['id']);// envia para pagina do prof
+        elseif ($user['tipo'] === 'Administrador') {
+            $_SESSION['admin_id'] = $user['id']; //Guarda ID do professor
+            header("Location: professor.php?admin_id=". $user['id']);// envia para pagina do prof
     }
+}
+    else{
+        header("Location: logout.php"); // Redireciona para a página de logout
+        exit();
+    }
+}
     }
     else{
         header("Location: logout.php"); // Redireciona para a página de logout
         exit();
     }
-    }
-    else{
-        header("Location: logout.php"); // Redireciona para a página de logout
-        exit();
-    }
-
+}
 
 
 
