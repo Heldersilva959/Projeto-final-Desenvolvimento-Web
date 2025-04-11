@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION['aluno_id'])) {
-    header("Location: login1.php");
+    header("Location: index.html");
 }
 ?>
 
@@ -67,7 +67,7 @@ INNER JOIN disciplinas d ON n.fk_disc = d.id
 LEFT JOIN turma_alunos ta ON a.id = ta.fk_aluno
 LEFT JOIN turmas t ON ta.fk_turma = t.id
 WHERE 
-    a.id = '$aluno_id' " ;
+    a.id =  $aluno_id"; 
 
 $consulta = mysqli_query($connection, $sql); 
 
@@ -112,9 +112,9 @@ mysqli_close($connection);
 
     </div>
 <br><br>
-<div style="text-align: center;">
-        <button onclick="window.location.href='logout.php'">Voltar</button>
-    </div>
+<form action="index.html" method="post">
+        <button type="submit">Deslogar</button> 
+    </form>
 </body>
 </html>
 

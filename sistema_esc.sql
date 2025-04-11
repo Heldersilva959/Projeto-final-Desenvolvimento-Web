@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `sistema_esc` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `sistema_esc`;
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: sistema_esc
@@ -14,6 +16,32 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `administradores`
+--
+
+DROP TABLE IF EXISTS `administradores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `administradores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_user` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fk_user` (`fk_user`),
+  CONSTRAINT `administradores_ibfk_1` FOREIGN KEY (`fk_user`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `administradores`
+--
+
+LOCK TABLES `administradores` WRITE;
+/*!40000 ALTER TABLE `administradores` DISABLE KEYS */;
+INSERT INTO `administradores` VALUES (1,23),(2,24);
+/*!40000 ALTER TABLE `administradores` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `alunos`
@@ -169,10 +197,7 @@ DROP TABLE IF EXISTS `turmas`;
 CREATE TABLE `turmas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
-  `fk_prof` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_prof` (`fk_prof`),
-  CONSTRAINT `turmas_ibfk_1` FOREIGN KEY (`fk_prof`) REFERENCES `professores` (`id`) ON DELETE CASCADE
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -182,7 +207,7 @@ CREATE TABLE `turmas` (
 
 LOCK TABLES `turmas` WRITE;
 /*!40000 ALTER TABLE `turmas` DISABLE KEYS */;
-INSERT INTO `turmas` VALUES (1,'Turma A',1),(2,'Turma B',1),(3,'Turma C',2),(4,'Turma D',2);
+INSERT INTO `turmas` VALUES (1,'Turma A'),(2,'Turma B'),(3,'Turma C'),(4,'Turma D');
 /*!40000 ALTER TABLE `turmas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,11 +225,11 @@ CREATE TABLE `usuarios` (
   `idade` int(11) NOT NULL,
   `cpf` varchar(14) NOT NULL,
   `senha` varchar(255) NOT NULL,
-  `tipo` enum('Professor','Aluno') NOT NULL,
+  `tipo` enum('Professor','Aluno','Administrador') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -213,9 +238,17 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Helder','helder@gmail.com',20,'121.456.789-00','12345','Aluno'),(2,'Matheus','matheus@gmail.com',18,'122.456.789-00','12345','Aluno'),(3,'Ari','ari@gmail.com',27,'123.456.789-00','12345','Aluno'),(4,'Giovanna','giovanna@gmail.com',17,'124.456.789-00','12345','Aluno'),(5,'Gillis','gillis@gmail.com',40,'125.456.789-00','12345','Aluno'),(6,'William','william@gmail.com',17,'126.456.789-00','12345','Aluno'),(7,'Nicholas','nicholas@gmail.com',25,'127.456.789-00','12345','Professor'),(8,'Jhonta','jhonta@gmail.com',28,'128.456.789-00','12345','Professor'),(9,'lucas','lucas@gmail.com',23,'129.456.789-00','12345','Aluno'),(10,'caio','caio@gmail.com',34,'130.456.789-00','12345','Aluno'),(11,'alex','alex@gmail.com',23,'000.456.789-00','12345','Aluno'),(12,'Pedro','pedro@gmail.com',21,'001.456.789-00','12345','Aluno'),(13,'Gabriel','gabriel@gmail.com',23,'020.456.789-00','12345','Aluno'),(14,'Rafael','rafael@gmail.com',19,'002.456.789-00','12345','Aluno'),(15,'Felipe','felipe@gmail.com',22,'003.456.789-00','12345','Aluno'),(16,'Gabriele','gabriele@gmail.com',20,'004.456.789-00','12345','Aluno'),(17,'Marcos','marcos@gmail.com',24,'005.456.789-00','12345','Aluno'),(18,'Leonardo','leonardo@gmail.com',18,'006.456.789-00','12345','Aluno'),(19,'Thiago','thiago@gmail.com',21,'007.456.789-00','12345','Aluno'),(20,'Yasmim','yasmim@gmail.com',22,'008.456.789-00','12345','Aluno'),(21,'Daniel','daniel@gmail.com',31,'009.456.789-00','12345','Aluno'),(22,'Bruno','bruno@gmail.com',40,'010.456.789-00','12345','Aluno');
+INSERT INTO `usuarios` VALUES (1,'Helder','helder@gmail.com',20,'121.456.789-00','12345','Aluno'),(2,'Matheus','matheus@gmail.com',18,'122.456.789-00','12345','Aluno'),(3,'Ari','ari@gmail.com',27,'123.456.789-00','12345','Aluno'),(4,'Giovanna','giovanna@gmail.com',17,'124.456.789-00','12345','Aluno'),(5,'Gillis','gillis@gmail.com',40,'125.456.789-00','12345','Aluno'),(6,'William','william@gmail.com',17,'126.456.789-00','12345','Aluno'),(7,'Nicholas','nicholas@gmail.com',25,'127.456.789-00','12345','Professor'),(8,'Jhonta','jhonta@gmail.com',28,'128.456.789-00','12345','Professor'),(9,'lucas','lucas@gmail.com',23,'129.456.789-00','12345','Aluno'),(10,'caio','caio@gmail.com',34,'130.456.789-00','12345','Aluno'),(11,'alex','alex@gmail.com',23,'000.456.789-00','12345','Aluno'),(12,'Pedro','pedro@gmail.com',21,'001.456.789-00','12345','Aluno'),(13,'Gabriel','gabriel@gmail.com',23,'020.456.789-00','12345','Aluno'),(14,'Rafael','rafael@gmail.com',19,'002.456.789-00','12345','Aluno'),(15,'Felipe','felipe@gmail.com',22,'003.456.789-00','12345','Aluno'),(16,'Gabriele','gabriele@gmail.com',20,'004.456.789-00','12345','Aluno'),(17,'Marcos','marcos@gmail.com',24,'005.456.789-00','12345','Aluno'),(18,'Leonardo','leonardo@gmail.com',18,'006.456.789-00','12345','Aluno'),(19,'Thiago','thiago@gmail.com',21,'007.456.789-00','12345','Aluno'),(20,'Yasmim','yasmim@gmail.com',22,'008.456.789-00','12345','Aluno'),(21,'Daniel','daniel@gmail.com',31,'009.456.789-00','12345','Aluno'),(22,'Bruno','bruno@gmail.com',40,'010.456.789-00','12345','Aluno'),(23,'Fernando','fernando@gmail.com',60,'011.456.789-00','12345','Administrador'),(24,'Fernanda','fernanda@gmail.com',55,'012.456.789-00','12345','Administrador');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'sistema_esc'
+--
+
+--
+-- Dumping routines for database 'sistema_esc'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -226,4 +259,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-10 20:36:35
+-- Dump completed on 2025-04-11 18:12:19
