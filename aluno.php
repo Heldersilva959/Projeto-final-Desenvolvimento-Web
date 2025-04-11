@@ -64,6 +64,7 @@ if ($consulta) {
         echo "<tr>
                 <th>Matrícula</th>
                 <th>Aluno</th>
+                <th>Turma</th>
                 <th>Disciplina</th>
                 <th>Nota</th>
                 <th>Data de Lançamento</th>
@@ -75,6 +76,7 @@ if ($consulta) {
             echo "<tr>";
             echo "<td>" . $row['matricula'] . "</td>";
             echo "<td>" . $row['aluno'] . "</td>";
+            echo "<td>" . $row['turma'] . "</td>";
             echo "<td>" . $row['disciplina'] . "</td>";
             echo "<td>" . $row['nota'] . "</td>";
             echo "<td>" . $row['dataL'] . "</td>";
