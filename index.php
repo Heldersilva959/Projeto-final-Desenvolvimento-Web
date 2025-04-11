@@ -17,16 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         
         if ($user['tipo'] === 'Aluno') {
-            $sql_aluno_id = "SELECT id FROM alunos WHERE fk_user = " . $user['id'];
-            $result_aluno = mysqli_query($connection, $sql_aluno_id);
-
-            if ($result_aluno && mysqli_num_rows($result_aluno) > 0) {
-                $aluno = mysqli_fetch_assoc($result_aluno);
-                $_SESSION['aluno_id'] = $aluno['id']; // Guarda ID do aluno na sessão
-            header("Location: aluno.php?aluno_id=". $aluno['id']);// envia para pagina do aluno
-            }
-           
-            
+                $_SESSION['aluno_id'] = $user['id']; // Guarda ID do aluno na sessão
+            header("Location: aluno.php?aluno_id=". $user['id']);// envia para pagina do aluno
+            }     
          elseif ($user['tipo'] === 'Professor') {
             $_SESSION['prof_id'] = $user['id']; //Guarda ID do professor
             header("Location: professor.php?prof_id=". $user['id']);// envia para pagina do prof
@@ -34,8 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         elseif ($user['tipo'] === 'Administrador') {
             $_SESSION['admin_id'] = $user['id']; //Guarda ID do professor
             header("Location: professor.php?admin_id=". $user['id']);// envia para pagina do prof
+     }
+     else{
+        echo " <h1> Usuario não encontrado </h1>";
+        session_destroy();
+        header("Refresh: 0; index.php"); // Redireciona para a página de logout
+        exit();
+     }
     }
-}
     else{
         header("Location: logout.php"); // Redireciona para a página de logout
         exit();
@@ -43,10 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
     }
     else{
-        header("Location: logout.php"); // Redireciona para a página de logout
+        echo " <h1> Conexão perdida </h1>";
+        session_destroy();
+        header("Refresh: 0; index.php"); // Redireciona para a página de logout
         exit();
     }
-}
+
 
 
 

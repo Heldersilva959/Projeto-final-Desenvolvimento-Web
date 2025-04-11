@@ -1,14 +1,15 @@
 <?php 
-include("conexao.php");
 session_start();
+include("conexao.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['cpf']) &&  !empty($_POST['cpf']) && isset($_POST['senha']) && !empty($_POST['senha'])) {
-    $cpf = $_POST['cpf'];
+// método de requisição utilizado para acessar a página
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
+    if (isset($_POST['email']) &&  !empty($_POST['email']) && isset($_POST['senha']) && !empty($_POST['senha'])) { // isset verifica se uma variável é considerada definida. !Empty verifica se esta vazia
+    $email = $_POST['email'];
     $senha = $_POST['senha'];
 
     // Consultando o banco de dados
-    $sql = "SELECT * FROM usuarios WHERE cpf = '$cpf' AND senha = '$senha'";
+    $sql = "SELECT * FROM usuarios WHERE email = '$email' AND senha = '$senha'";
     $result = mysqli_query($connection, $sql);
     
     if (mysqli_num_rows($result) == 1) { // Returns the number of rows in the result set.
@@ -16,36 +17,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         
         if ($user['tipo'] === 'Aluno') {
-
-            $sql_aluno_id = "SELECT id FROM alunos WHERE fk_user = " . $user['id'];
-            $result_aluno = mysqli_query($connection, $sql_aluno_id);
-
-            if ($result_aluno && mysqli_num_rows($result_aluno) > 0) {
-                $aluno = mysqli_fetch_assoc($result_aluno);
-
-                $_SESSION['aluno_id'] = $aluno['id']; // Guarda ID do aluno na sessão
-            header("Location: aluno.php?aluno_id=". $aluno['id']);// envia para pagina do aluno
-            }
-            else
-            echo "Erro ao encontrar o ID do aluno.";
-            
-            
-        } elseif ($user['tipo'] === 'Professor') {
+                $_SESSION['aluno_id'] = $user['id']; // Guarda ID do aluno na sessão
+            header("Location: aluno.php?aluno_id=". $user['id']);// envia para pagina do aluno
+            }     
+         elseif ($user['tipo'] === 'Professor') {
             $_SESSION['prof_id'] = $user['id']; //Guarda ID do professor
             header("Location: professor.php?prof_id=". $user['id']);// envia para pagina do prof
-
         }
-    }
-    else{
-        header("Location: logout.php"); // Redireciona para a página de logout
+        elseif ($user['tipo'] === 'Administrador') {
+            $_SESSION['admin_id'] = $user['id']; //Guarda ID do professor
+            header("Location: professor.php?admin_id=". $user['id']);// envia para pagina do prof
+     }
+     else{
+        echo " <h1> Usuario não encontrado </h1>";
+        session_destroy();
+        header("Refresh: 0; login2.php"); // Redireciona para a página de logout
         exit();
-    }
+     }
     }
     else{
         header("Location: logout.php"); // Redireciona para a página de logout
         exit();
     }
 }
+    }
+    else{
+        echo " <h1> Conexão perdida </h1>";
+        session_destroy();
+        header("Refresh: 0; login2.php"); // Redireciona para a página de logout
+        exit();
+    }
+
+
+
+
+?> 
 
 ?>
 
