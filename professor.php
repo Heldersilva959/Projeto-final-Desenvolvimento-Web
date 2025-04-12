@@ -62,9 +62,6 @@ if (!isset($_SESSION['prof_id'])) {
     <form action="notas.php" method="post">
         <button type="submit">Ver Notas dos Alunos</button>
     </form>
-    <form action="cadastro.php" method="post">
-        <button type="submit">Cadastrar Novos Alunos</button> 
-    </form>
     <form action="index.html" method="post">
         <button type="submit">Deslogar</button> 
     </form>
