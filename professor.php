@@ -57,7 +57,7 @@ if (!isset($_SESSION['prof_id'])) {
 </head>
 <body>
     <h1>Página do Professor</h1>
-    <p>Bem-vindo à página do professor! Aqui você pode gerenciar suas atividades.</p>
+    <p>Bem-vindo, à página do professor! Aqui você pode gerenciar suas atividades.</p>
 
     <form action="notas.php" method="post">
         <button type="submit">Ver Notas dos Alunos</button>

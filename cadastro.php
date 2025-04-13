@@ -9,8 +9,7 @@ if(isset($_POST['submit'])) {
     $senha = $_POST['senha'];
     $tipo = $_POST['tipo'];
     $data_nascimento = $_POST['data_nascimento'];
-    $matricula = ($tipo == 'Aluno') ? $_POST['matricula'] : null;
-
+    $turma = ($tipo == 'Aluno') ? $_POST['turma'] : null;
     // Validação da data
     $data = DateTime::createFromFormat('d/m/Y', $data_nascimento);
     if (!$data) {
@@ -32,10 +31,10 @@ if(isset($_POST['submit'])) {
 
     // Se for aluno, insere a matrícula
     if ($tipo == 'Aluno') {
-        if (empty($matricula)) {
-            die("Matrícula é obrigatória para alunos");
+        if (empty($matricula)&& $turma == null) {
+            die("Matrícula e turma é obrigatória para alunos");
         }
-
+        $matricula = ($tipo == 'Aluno') ? $_POST['matricula'] : null;
         $sql_alunos = "INSERT INTO alunos (matricula, fk_user) 
                       VALUES ('$matricula', $user_id)";
         $result_alunos = mysqli_query($connection, $sql_alunos);
@@ -47,19 +46,38 @@ if(isset($_POST['submit'])) {
         $aluno_id = mysqli_insert_id($connection);
 
         // Vincular disciplinas
-        $sql_disciplinas = "SELECT id, fk_prof FROM disciplinas";
-        $result_disciplinas = mysqli_query($connection, $sql_disciplinas);
+       // Seleciona as disciplinas para vincular ao aluno
+       $sql_disciplinas = "SELECT id, fk_prof FROM disciplinas";
+       $result_disciplinas = mysqli_query($connection, $sql_disciplinas);
 
-        if ($result_disciplinas && mysqli_num_rows($result_disciplinas) > 0) {
-            while ($disciplina = mysqli_fetch_assoc($result_disciplinas)) {
-                $sql_notas = "INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) 
-                             VALUES (0, CURDATE(), $aluno_id, {$disciplina['fk_prof']}, {$disciplina['id']})";
-                mysqli_query($connection, $sql_notas);
+       if ($result_disciplinas && mysqli_num_rows($result_disciplinas) > 0) {
+           $disciplinas = mysqli_fetch_all($result_disciplinas, MYSQLI_ASSOC);
+
+           // Insere o aluno em todas as disciplinas com nota inicial 0
+           foreach ($disciplinas as $disciplina) {
+               $disciplina_id = $disciplina['id'];
+               $prof_id = $disciplina['fk_prof'];
+
+               $sql_notas = "INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) 
+                             VALUES (0, '2024-08-28', $aluno_id, $prof_id, $disciplina_id)";
+               mysqli_query($connection, $sql_notas);
             }
+        }
+
+        // Vincular aluno a turma (se necessário)
+        $sql_turmas = "SELECT id FROM turmas WHERE id = $turma";
+        $result_turmas = mysqli_query($connection, $sql_turmas);
+        if ($result_turmas && mysqli_num_rows($result_turmas) > 0) {
+            $sql_turma_alunos = "INSERT INTO turma_alunos (fk_aluno, fk_turma) 
+                                 VALUES ($aluno_id, $turma)";
+            mysqli_query($connection, $sql_turma_alunos);
         }
     }
 
+
     echo "Cadastro realizado com sucesso!";
+    header("Location: cadastro.php"); // Redireciona para a página inicial
+    exit;
     mysqli_close($connection);
     exit;
 }
@@ -162,10 +180,28 @@ if(isset($_POST['submit'])) {
             <option value="Professor">Professor</option>
             <option value="Administrador">Administrador</option>
         </select>
+
         <div id="para_aluno">
             <label for="sealuno">caso a opção anterior seja 'Aluno' adicione: </label>
         <label for="matricula">Matrícula:</label>
         <input type="text" id="matricula" name="matricula">
+        <label for="turma">Turma:</label>
+        <select id="turma" name="turma">
+            <option value="">Selecione:</option>
+            <?php
+            // Consulta para obter as turmas
+            $sql_turmas = "SELECT id, nome FROM turmas";
+            $result_turmas = mysqli_query($connection, $sql_turmas);
+
+            if ($result_turmas && mysqli_num_rows($result_turmas) > 0) {
+                while ($row = mysqli_fetch_assoc($result_turmas)) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
+                }
+            } else {
+                echo "<option value=''>Nenhuma turma encontrada</option>";
+            }
+            ?>
+        </select>
         </div>
 
         <input type="submit" name="submit" id="submit">
