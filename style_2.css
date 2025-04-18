@@ -788,7 +788,6 @@ footer button {
     }
 }
 
-/* Responsividade para o footer */
 @media screen and (max-width: 768px) {
     footer {
         flex-direction: column;
@@ -858,7 +857,7 @@ footer button {
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 780px) {
     footer {
         padding: 15px;
     }
