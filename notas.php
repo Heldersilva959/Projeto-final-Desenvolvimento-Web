@@ -65,21 +65,38 @@
     <?php
     include("conexao.php");
     session_start();
+    
+    if (!isset($_SESSION['prof_id'])) {
+    
+        header("Location: index.html");
+    }
+    else {
+        $profId = $_SESSION['prof_id'];
+    }
 
-    $sql = "SELECT alunos.matricula, 
-        usuarios.nome AS aluno, 
-        disciplinas.nome AS disciplina, 
-        notas.nota, 
-        notas.dataL,
-        notas.id AS nota_id
-    FROM 
-        notas
-    INNER JOIN alunos ON notas.fk_aluno = alunos.id
-    INNER JOIN usuarios ON alunos.fk_user = usuarios.id
-    INNER JOIN disciplinas ON notas.fk_disc = disciplinas.id
-    ORDER BY 
-        alunos.matricula DESC,
-        disciplinas.nome";
+
+    $sql = "SELECT 
+    alunos.matricula,
+    usuarios.nome AS aluno,
+    disciplinas.nome AS disciplina,
+    turmas.nome AS turma,
+    notas.nota,
+    notas.dataL,
+    notas.id AS nota_id
+FROM prof_disc_turma pdt
+INNER JOIN professores ON pdt.fk_prof = professores.id
+INNER JOIN turmas ON pdt.fk_turma = turmas.id
+INNER JOIN disciplinas ON pdt.fk_disc = disciplinas.id
+INNER JOIN turma_alunos ON turma_alunos.fk_turma = turmas.id
+INNER JOIN alunos ON turma_alunos.fk_aluno = alunos.id
+INNER JOIN usuarios ON alunos.fk_user = usuarios.id
+LEFT JOIN notas 
+    ON notas.fk_aluno = alunos.id 
+    AND notas.fk_disc = disciplinas.id
+WHERE professores.fk_user = $profId
+ORDER BY turma, disciplina, aluno;
+";
+
 
     $consulta = mysqli_query($connection, $sql); 
 
