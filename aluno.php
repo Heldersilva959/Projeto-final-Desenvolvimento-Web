@@ -11,38 +11,7 @@ if (!isset($_SESSION['aluno_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página do Aluno</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        button {
-            background-color: dodgerblue;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #1e90ff;
-        }
-    </style>
+    <link rel="stylesheet" href="Style/aluno.css">
 </head>
 <body>
     <H1> BOLETIM DO ALUNO:   </H1>
@@ -75,7 +44,7 @@ if ($consulta) {
 
     if (mysqli_num_rows($consulta) >= 0) {
         
-        echo "<table border='1'>";
+        echo "<table class='tabela-boletim' border='1'>";
         echo "<tr>
                 <th>Matrícula</th>
                 <th>Aluno</th>
@@ -112,8 +81,8 @@ mysqli_close($connection);
 
     </div>
 <br><br>
-<form action="index.html" method="post">
-        <button type="submit">Deslogar</button> 
+<form class="deslogar" action="index.html" method="post">
+        <button class="botao" type="submit">Deslogar</button> 
     </form>
 </body>
 </html>
