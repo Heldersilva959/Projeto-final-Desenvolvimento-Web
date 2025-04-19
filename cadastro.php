@@ -69,93 +69,28 @@ mysqli_close($connection);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Aluno</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            background-color: rgb(0, 0, 0);
-            color: white;
-            padding: 10px;
-            text-align: center;
-            margin: 0;
-        }
-        form {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        input[type="text"], input[type="email"], input[type="number"], input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        #submit {
-            width: 100%;
-            padding: 10px;
-            background-color: dodgerblue;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        #submit:hover {
-            background-color: deepskyblue;
-        }
-        button {
-            background-color: dodgerblue;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: deepskyblue;
-        }
-    </style>
+    <link rel="stylesheet" href="Style/cad.css">
 </head>
 <body>
 <h1>Cadastrar Novo Aluno</h1>
     <form action="cadastro.php" method="post">
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
-
+        <input placeholder="Ex: João" class="inputCad" type="text" id="nome" name="nome" required>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
+        <input placeholder="Ex: aluno@Gmail.com" class="inputCad" type="email" id="email" name="email" required>
         <label for="idade">Idade:</label>
-        <input type="number" id="idade" name="idade" required>
+        <input placeholder="Ex: 20" class="inputCad" type="number" id="idade" name="idade" required>
 
         <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" required>
+        <input  placeholder="Ex: 000.000.000-00" class="inputCad" type="text" id="cpf" name="cpf" required>
 
         <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
+        <input placeholder="Ex: Senha123" class="inputCad" type="password" id="senha" name="senha" required>
 
         <label for="matricula">Matrícula:</label>
-        <input type="text" id="matricula" name="matricula" required>
+        <input placeholder="Ex: 123456" class="inputCad" type="text" id="matricula" name="matricula" required>
 
-        <input type="submit" name="submit" id="submit">
+        <input class="inputCad" type="submit" name="submit" id="submit">
     </form>
     <div style="text-align: center;">
         <button onclick="window.location.href='professor.php'">Voltar</button>
