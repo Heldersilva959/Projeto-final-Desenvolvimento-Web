@@ -6,23 +6,26 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: index.html");
     exit;
 }
+else {
+    $admin_id = $_SESSION['admin_id'];
+}
 
+// Verifica se o usuário é um administrador
 // Processa a exclusão de usuário se houver requisição
 if (isset($_POST['deletar'])) {
     $usuario_id = $_POST['usuario_id'];
     
     // Primeiro verifica se não está tentando se auto-deletar
-    if ($usuario_id != $_SESSION['id']) {
+    if ($usuario_id != $admin_id) {
         // Exclui o usuário
         $sql_delete = "DELETE FROM usuarios WHERE id = $usuario_id";
         mysqli_query($connection, $sql_delete);
         
-        // Aqui você pode adicionar a exclusão em cascata de tabelas relacionadas se necessário
+        // Redireciona para a mesma página para atualizar a lista
+        header("Location: gerenciar_usuarios.php");
     }
 }
 
-// Obtém o ID do administrador logado
-$admin_id = $_SESSION['id'];
 
 // Consulta todos os usuários exceto o administrador logado
 $sql = "SELECT id, nome, email, idade, cpf, tipo FROM usuarios WHERE id != $admin_id ORDER BY nome";
@@ -153,7 +156,7 @@ $resultado = mysqli_query($connection, $sql);
         <?php endif; ?>
         
         <div style="text-align: center;">
-            <a href="admin.php" class="btn btn-voltar">Voltar</a>
+            <a href="administrador.php" class="btn btn-voltar">Voltar</a>
         </div>
     </div>
 </body>

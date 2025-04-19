@@ -4,6 +4,10 @@ if (!isset($_SESSION['prof_id'])) {
     
     header("Location: index.html");
 }
+else {
+    $profId = $_SESSION['prof_id'];
+}
+// Verifica se o usuário é um professor
 ?>
 
 <!DOCTYPE html>

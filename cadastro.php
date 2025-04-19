@@ -1,15 +1,17 @@
 <?php
 include_once("conexao.php");
 
-if(isset($_POST['submit'])) {
-    // Coleta dos dados
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $cpf = $_POST['cpf'];
-    $senha = $_POST['senha'];
-    $tipo = $_POST['tipo'];
-    $data_nascimento = $_POST['data_nascimento'];
-    $turma = ($tipo == 'Aluno') ? $_POST['turma'] : null;
+if (isset($_POST['submit'])) {
+    // Coleta e tratamento dos dados do formulário
+    $nome = htmlspecialchars($_POST['nome'], ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
+    $cpf = htmlspecialchars($_POST['cpf'], ENT_QUOTES, 'UTF-8');
+    $senha = htmlspecialchars($_POST['senha'], ENT_QUOTES, 'UTF-8');
+    $tipo = htmlspecialchars($_POST['tipo'], ENT_QUOTES, 'UTF-8');
+    $data_nascimento = htmlspecialchars($_POST['data_nascimento'], ENT_QUOTES, 'UTF-8');
+    $turma = ($tipo == 'Aluno') ? htmlspecialchars($_POST['turma'], ENT_QUOTES, 'UTF-8') : null;
+    $matricula = ($tipo == 'Aluno') ? htmlspecialchars($_POST['matricula'], ENT_QUOTES, 'UTF-8') : null;
+
     // Validação da data
     $data = DateTime::createFromFormat('d/m/Y', $data_nascimento);
     if (!$data) {
@@ -20,7 +22,7 @@ if(isset($_POST['submit'])) {
 
     // Inserção do usuário
     $sql_users = "INSERT INTO usuarios (nome, idade, email, cpf, senha, tipo) 
-                    VALUES ('$nome', '$idade', '$email', '$cpf', '$senha', '$tipo')";
+                  VALUES ('$nome', '$idade', '$email', '$cpf', '$senha', '$tipo')";
     $result_users = mysqli_query($connection, $sql_users);
 
     if (!$result_users) {
@@ -31,12 +33,12 @@ if(isset($_POST['submit'])) {
 
     // Se for aluno, insere a matrícula
     if ($tipo == 'Aluno') {
-        if (empty($matricula)&& $turma == null) {
-            die("Matrícula e turma é obrigatória para alunos");
+        if (empty($matricula) || empty($turma)) {
+            die("Matrícula e turma são obrigatórias para alunos");
         }
-        $matricula = ($tipo == 'Aluno') ? $_POST['matricula'] : null;
+
         $sql_alunos = "INSERT INTO alunos (matricula, fk_user) 
-                      VALUES ('$matricula', $user_id)";
+                       VALUES ('$matricula', $user_id)";
         $result_alunos = mysqli_query($connection, $sql_alunos);
 
         if (!$result_alunos) {
@@ -46,25 +48,23 @@ if(isset($_POST['submit'])) {
         $aluno_id = mysqli_insert_id($connection);
 
         // Vincular disciplinas
-       // Seleciona as disciplinas para vincular ao aluno
-       $sql_disciplinas = "SELECT id, fk_prof FROM disciplinas";
-       $result_disciplinas = mysqli_query($connection, $sql_disciplinas);
+        $sql_disciplinas = "SELECT id, fk_prof FROM disciplinas";
+        $result_disciplinas = mysqli_query($connection, $sql_disciplinas);
 
-       if ($result_disciplinas && mysqli_num_rows($result_disciplinas) > 0) {
-           $disciplinas = mysqli_fetch_all($result_disciplinas, MYSQLI_ASSOC);
+        if ($result_disciplinas && mysqli_num_rows($result_disciplinas) > 0) {
+            $disciplinas = mysqli_fetch_all($result_disciplinas, MYSQLI_ASSOC);
 
-           // Insere o aluno em todas as disciplinas com nota inicial 0
-           foreach ($disciplinas as $disciplina) {
-               $disciplina_id = $disciplina['id'];
-               $prof_id = $disciplina['fk_prof'];
+            foreach ($disciplinas as $disciplina) {
+                $disciplina_id = $disciplina['id'];
+                $prof_id = $disciplina['fk_prof'];
 
-               $sql_notas = "INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) 
-                             VALUES (0, '2024-08-28', $aluno_id, $prof_id, $disciplina_id)";
-               mysqli_query($connection, $sql_notas);
+                $sql_notas = "INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) 
+                              VALUES (0, '2024-08-28', $aluno_id, $prof_id, $disciplina_id)";
+                mysqli_query($connection, $sql_notas);
             }
         }
 
-        // Vincular aluno a turma (se necessário)
+        // Vincular aluno à turma
         $sql_turmas = "SELECT id FROM turmas WHERE id = $turma";
         $result_turmas = mysqli_query($connection, $sql_turmas);
         if ($result_turmas && mysqli_num_rows($result_turmas) > 0) {
@@ -74,11 +74,8 @@ if(isset($_POST['submit'])) {
         }
     }
 
-
     echo "Cadastro realizado com sucesso!";
-    header("Location: cadastro.php"); // Redireciona para a página inicial
-    exit;
-    mysqli_close($connection);
+    header("Location: cadastro.php");
     exit;
 }
 ?>
@@ -207,7 +204,7 @@ if(isset($_POST['submit'])) {
         <input type="submit" name="submit" id="submit">
     </form>
     <div style="text-align: center;">
-        <button onclick="window.location.href='index.html'">Deslogar</button>
+        <button onclick="window.location.href='administrador.php'">Voltar</button>
     </div>
 </body>
 </html>
