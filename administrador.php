@@ -2,9 +2,13 @@
 include_once("conexao.php");
 session_start();
 if (!isset($_SESSION['admin_id'])) {
-    
     header("Location: index.html");
 }
+else {
+    $adminId = $_SESSION['admin_id'];
+}
+// Verifica se o usuário é um administrador
+
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +47,7 @@ if (!isset($_SESSION['admin_id'])) {
     <form action="index.html" method="post">
         <button type="submit">Deslogar</button> 
     </form>
+   
 </body>
 </html>
 

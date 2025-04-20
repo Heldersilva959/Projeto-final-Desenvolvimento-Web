@@ -14,78 +14,94 @@
     <br> <br> 
     <div class="containerTable">
     <?php
-include("conexao.php");
-session_start();
-$sql = "SELECT alunos.matricula, 
-    usuarios.nome AS aluno, 
-    disciplinas.nome AS disciplina, 
-    notas.nota, 
+    include("conexao.php");
+    session_start();
+    
+    if (!isset($_SESSION['prof_id'])) {
+    
+        header("Location: index.html");
+    }
+    else {
+        $profId = $_SESSION['prof_id'];
+    }
+
+
+    $sql = "SELECT 
+    alunos.matricula,
+    usuarios.nome AS aluno,
+    disciplinas.nome AS disciplina,
+    turmas.nome AS turma,
+    notas.nota,
     notas.dataL,
     notas.id AS nota_id
-FROM 
-    notas
-INNER JOIN alunos ON notas.fk_aluno = alunos.id
+FROM prof_disc_turma pdt
+INNER JOIN professores ON pdt.fk_prof = professores.id
+INNER JOIN turmas ON pdt.fk_turma = turmas.id
+INNER JOIN disciplinas ON pdt.fk_disc = disciplinas.id
+INNER JOIN turma_alunos ON turma_alunos.fk_turma = turmas.id
+INNER JOIN alunos ON turma_alunos.fk_aluno = alunos.id
 INNER JOIN usuarios ON alunos.fk_user = usuarios.id
-INNER JOIN disciplinas ON notas.fk_disc = disciplinas.id
-ORDER BY 
-    alunos.matricula DESC,
-    disciplinas.nome;
-    ";
+LEFT JOIN notas 
+    ON notas.fk_aluno = alunos.id 
+    AND notas.fk_disc = disciplinas.id
+WHERE professores.fk_user = $profId
+ORDER BY turma,  aluno, disciplina;
+";
 
-// Executando a consulta
-$consulta = mysqli_query($connection, $sql); 
 
-if ($consulta) {    
-    // Verificando se há resultados
-    if (mysqli_num_rows($consulta) > 0) {
-        // Iniciando a tabela HTML
-        echo "<table border='1'>";
-        echo "<tr>
-                <th>Matrícula</th>
-                <th>Aluno</th>
-                <th>Disciplina</th>
-                <th>Nota</th>
-                <th>Data</th>
-                <th>Alterar Nota</th>
-              </tr>";
-        
-        // Iterando sobre os resultados e preenchendo a tabela
-        while ($row = mysqli_fetch_assoc($consulta)) {
-         
-            echo "<tr>";
-            echo "<td>" . $row['matricula'] . "</td>";
-            echo "<td>" . $row['aluno'] . "</td>";
-            echo "<td>" . $row['disciplina'] . "</td>";
-            echo "<td>" . $row['nota'] . "</td>";
-            echo "<td>" . $row['dataL'] . "</td>";
-            echo "<td>
-                            <form action='editar.php' method='post'>
-                                <input type='hidden' name='nota_id' value='" . $row['nota_id'] . "'> 
-                                <input type='text' name='nova_nota' value='" . $row['nota'] . "'>
-                                <button type='submit'>Atualizar</button>
-                            </form>
-                </td>";
-            echo "</tr>";
+    $consulta = mysqli_query($connection, $sql); 
+
+    if ($consulta) {    
+        if (mysqli_num_rows($consulta) > 0) {
+            echo "<table border='1'>";
+            echo "<tr>
+                    <th>Matrícula</th>
+                    <th>Aluno</th>
+                    <th>Disciplina</th>
+                    <th>Nota</th>
+                    <th>Data</th>
+                    <th>Alterar Nota</th>
+                  </tr>";
+            
+            while ($row = mysqli_fetch_assoc($consulta)) {
+                
+                $matricula = htmlspecialchars($row['matricula']);
+                $aluno = htmlspecialchars($row['aluno']);
+                $disciplina = htmlspecialchars($row['disciplina']);
+                $nota = htmlspecialchars($row['nota']);
+                $data = htmlspecialchars($row['dataL']);
+                $nota_id = htmlspecialchars($row['nota_id']);
+
+                echo "<tr>";
+                echo "<td>$matricula</td>";
+                echo "<td>$aluno</td>";
+                echo "<td>$disciplina</td>";
+                echo "<td>$nota</td>";
+                echo "<td>$data</td>";
+                echo "<td>
+                        <form action='editar.php' method='post'>
+                            <input type='hidden' name='nota_id' value='$nota_id'> 
+                            <input type='text' name='nova_nota' value='$nota'>
+                            <button type='submit'>Atualizar</button>
+                        </form>
+                      </td>";
+                echo "</tr>";
+            }
+            
+            echo "</table>";
+        } else {
+            echo "Nenhum resultado encontrado.";
         }
-        
-        echo "</table>"; // Fechando a tabela
     } else {
-        echo "Nenhum resultado encontrado.";
+        echo "Erro na consulta: " . htmlspecialchars(mysqli_errno($connection)) . " - " . htmlspecialchars(mysqli_error($connection));
     }
-} else {
-    echo "Erro na consulta: " . mysqli_errno($connection) . " - " . mysqli_error($connection);
-}
 
-// Fechando a conexão
-mysqli_close($connection);
-
-?>
+    mysqli_close($connection);
+    ?>
     </div>
-    <br> <br>
+    <br><br>
     <div style="text-align: center;">
         <button onclick="window.location.href='professor.php'">Voltar</button>
     </div>
 </body>
-
 </html>
-

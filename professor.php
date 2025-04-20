@@ -4,6 +4,10 @@ if (!isset($_SESSION['prof_id'])) {
     
     header("Location: index.html");
 }
+else {
+    $profId = $_SESSION['prof_id'];
+}
+// Verifica se o usuário é um professor
 ?>
 
 <!DOCTYPE html>
@@ -16,13 +20,10 @@ if (!isset($_SESSION['prof_id'])) {
 </head>
 <body>
     <h1>Página do Professor</h1>
-    <p>Bem-vindo à página do professor! Aqui você pode gerenciar suas atividades.</p>
+    <p>Bem-vindo, à página do professor! Aqui você pode gerenciar suas atividades.</p>
 
     <form action="notas.php" method="post">
         <button type="submit">Ver Notas dos Alunos</button>
-    </form>
-    <form action="cadastro.php" method="post">
-        <button type="submit">Cadastrar Novos Alunos</button> 
     </form>
     <form action="index.html" method="post">
         <button type="submit">Deslogar</button> 

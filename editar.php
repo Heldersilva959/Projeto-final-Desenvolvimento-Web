@@ -16,7 +16,7 @@ if (isset($_POST['nota_id']) && isset($_POST['nova_nota'])) {
         echo "Nota atualizada com sucesso";
         header("Location: notas.php");
     } else {
-        echo "Erro ao atualizar nota: " . mysqli_error($connection);
+        echo "Erro ao atualizar nota: " . htmlspecialchars(mysqli_error($connection));
     }
 } 
 
