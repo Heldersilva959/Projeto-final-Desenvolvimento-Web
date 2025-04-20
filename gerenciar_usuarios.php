@@ -38,88 +38,11 @@ $resultado = mysqli_query($connection, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Usuários</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            margin: 20px auto;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-            color: #333;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .acoes {
-            display: flex;
-            gap: 10px;
-        }
-        .btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .btn-editar {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .btn-editar:hover {
-            background-color: #45a049;
-        }
-        .btn-excluir {
-            background-color: #f44336;
-            color: white;
-        }
-        .btn-excluir:hover {
-            background-color: #d32f2f;
-        }
-        .btn-voltar {
-            background-color: #2196F3;
-            color: white;
-            padding: 10px 15px;
-            display: inline-block;
-            margin-top: 20px;
-        }
-        .btn-voltar:hover {
-            background-color: #0b7dda;
-        }
-    </style>
+    <link rel="stylesheet" href="Style/gerUser.css">
 </head>
 <body>
     <div class="container">
         <h1>Gerenciamento de Usuários</h1>
-        
         <?php if (mysqli_num_rows($resultado) > 0): ?>
             <table>
                 <thead>

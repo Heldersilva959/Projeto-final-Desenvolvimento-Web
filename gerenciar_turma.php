@@ -45,76 +45,7 @@ $resultado = mysqli_query($connection, $sql);
 <head>
     <meta charset="UTF-8">
     <title>Gerenciar Turmas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #eef2f3;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 80%;
-            margin: 30px auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ccc;
-        }
-        .acoes {
-            display: flex;
-            gap: 10px;
-        }
-        .btn {
-            padding: 6px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .btn-editar {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .btn-excluir {
-            background-color: #f44336;
-            color: white;
-        }
-        .btn-voltar {
-            background-color: #2196F3;
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-        }
-        form.inline-form {
-            display: inline;
-        }
-        .form-adicionar {
-            margin-top: 30px;
-            text-align: center;
-        }
-        .form-adicionar input {
-            padding: 8px;
-            font-size: 14px;
-        }
-        .form-adicionar button {
-            padding: 8px 14px;
-            margin-left: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="style/gerTurma.css">
 </head>
 <body>
 <div class="container">
