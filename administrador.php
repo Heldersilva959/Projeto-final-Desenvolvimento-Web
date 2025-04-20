@@ -23,8 +23,8 @@ else {
     <h1>Página do Administrador</h1>
     <p>Bem-vindo à página do administrador! Aqui você pode gerenciar suas atividades.</p>
 
-    <form action="notas.php" method="post">
-        <button type="submit">Ver Notas dos Alunos</button>
+    <form action="notas_adm.php" method="post">
+        <button type="submit">Gerenciar Notas dos Alunos</button>
     </form>
     <form action="cadastro.php" method="post">
         <button type="submit">Cadastrar Novos Usuários</button> 

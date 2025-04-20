@@ -1,36 +1,4 @@
-Pedrin
-pedrin3815
-Invisível
 
-serumaninho — 08/08/2023, 22:39
-Imagem
-serumaninho — 12/04/2025, 22:40
-https://www.mamp.info/en/windows/
-MAMP & MAMP PRO - your local web development solution for PHP and W...
-MAMP GmbH is the manufacturer of the award-winning MAMP software.
-serumaninho — 19:48
--- Criação do banco de dados
-drop DATABASE IF EXISTS sistema_esc;
-CREATE DATABASE IF NOT EXISTS sistema_esc;
-USE sistema_esc;
-
--- Tabela de usuários
-Expandir
-message.txt
-17 KB
--- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
---
--- Host: 127.0.0.1    Database: sistema_esc
--- ------------------------------------------------------
--- Server version5.5.5-10.4.32-MariaDB
-Expandir
-sistema_esc.sql
-18 KB
-﻿
-serumaninho
-serumaninho_
- 
- 
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: sistema_esc
@@ -311,4 +279,3 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-20 19:49:54
