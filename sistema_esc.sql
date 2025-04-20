@@ -1,5 +1,36 @@
-CREATE DATABASE  IF NOT EXISTS `sistema_esc` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `sistema_esc`;
+Pedrin
+pedrin3815
+Invisível
+
+serumaninho — 08/08/2023, 22:39
+Imagem
+serumaninho — 12/04/2025, 22:40
+https://www.mamp.info/en/windows/
+MAMP & MAMP PRO - your local web development solution for PHP and W...
+MAMP GmbH is the manufacturer of the award-winning MAMP software.
+serumaninho — 19:48
+-- Criação do banco de dados
+drop DATABASE IF EXISTS sistema_esc;
+CREATE DATABASE IF NOT EXISTS sistema_esc;
+USE sistema_esc;
+
+-- Tabela de usuários
+Expandir
+message.txt
+17 KB
+-- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: sistema_esc
+-- ------------------------------------------------------
+-- Server version5.5.5-10.4.32-MariaDB
+Expandir
+sistema_esc.sql
+18 KB
+﻿
+serumaninho
+serumaninho_
+ 
+ 
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: sistema_esc
@@ -81,10 +112,7 @@ DROP TABLE IF EXISTS `disciplinas`;
 CREATE TABLE `disciplinas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(30) NOT NULL,
-  `fk_prof` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_prof` (`fk_prof`),
-  CONSTRAINT `disciplinas_ibfk_1` FOREIGN KEY (`fk_prof`) REFERENCES `professores` (`id`) ON DELETE SET NULL
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -94,7 +122,7 @@ CREATE TABLE `disciplinas` (
 
 LOCK TABLES `disciplinas` WRITE;
 /*!40000 ALTER TABLE `disciplinas` DISABLE KEYS */;
-INSERT INTO `disciplinas` VALUES (1,'BANCO DE DADOS',1),(2,'LINGUAGEM PHP',1),(3,'HTML',1),(4,'CSS',1),(5,'JAVASCRIPT',2),(6,'GIT E GITHUB',2),(7,'JQUERY',2),(8,'BOOTSTRAP',2);
+INSERT INTO `disciplinas` VALUES (1,'BANCO DE DADOS'),(2,'LINGUAGEM PHP'),(3,'HTML'),(4,'CSS'),(5,'JAVASCRIPT'),(6,'GIT E GITHUB'),(7,'JQUERY'),(8,'BOOTSTRAP');
 /*!40000 ALTER TABLE `disciplinas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,6 +161,38 @@ INSERT INTO `notas` VALUES (1,8.50,'2024-03-05',1,1,1),(2,7.00,'2024-03-12',1,1,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `prof_disc_turma`
+--
+
+DROP TABLE IF EXISTS `prof_disc_turma`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `prof_disc_turma` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_prof` int(11) NOT NULL,
+  `fk_disc` int(11) NOT NULL,
+  `fk_turma` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fk_prof` (`fk_prof`,`fk_disc`,`fk_turma`),
+  KEY `fk_disc` (`fk_disc`),
+  KEY `fk_turma` (`fk_turma`),
+  CONSTRAINT `prof_disc_turma_ibfk_1` FOREIGN KEY (`fk_prof`) REFERENCES `professores` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `prof_disc_turma_ibfk_2` FOREIGN KEY (`fk_disc`) REFERENCES `disciplinas` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `prof_disc_turma_ibfk_3` FOREIGN KEY (`fk_turma`) REFERENCES `turmas` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prof_disc_turma`
+--
+
+LOCK TABLES `prof_disc_turma` WRITE;
+/*!40000 ALTER TABLE `prof_disc_turma` DISABLE KEYS */;
+INSERT INTO `prof_disc_turma` VALUES (1,1,1,1),(2,1,1,2),(3,1,1,3),(4,1,1,4),(5,1,2,1),(6,1,2,2),(7,1,2,3),(8,1,2,4),(9,1,3,1),(10,1,3,2),(11,1,3,3),(12,1,3,4),(13,1,4,1),(14,1,4,2),(15,1,4,3),(16,1,4,4),(50,2,5,1),(51,2,5,2),(52,2,5,3),(53,2,5,4),(54,2,6,1),(55,2,6,2),(56,2,6,3),(57,2,6,4),(58,2,7,1),(59,2,7,2),(60,2,7,3),(61,2,7,4),(62,2,8,1),(63,2,8,2),(64,2,8,3),(65,2,8,4),(74,4,1,1),(75,4,1,2),(76,4,1,3),(77,4,1,4);
+/*!40000 ALTER TABLE `prof_disc_turma` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `professores`
 --
 
@@ -145,7 +205,7 @@ CREATE TABLE `professores` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `fk_user` (`fk_user`),
   CONSTRAINT `professores_ibfk_1` FOREIGN KEY (`fk_user`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +214,7 @@ CREATE TABLE `professores` (
 
 LOCK TABLES `professores` WRITE;
 /*!40000 ALTER TABLE `professores` DISABLE KEYS */;
-INSERT INTO `professores` VALUES (1,7),(2,8);
+INSERT INTO `professores` VALUES (1,7),(2,8),(4,26);
 /*!40000 ALTER TABLE `professores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,7 +234,7 @@ CREATE TABLE `turma_alunos` (
   KEY `fk_aluno` (`fk_aluno`),
   CONSTRAINT `turma_alunos_ibfk_1` FOREIGN KEY (`fk_turma`) REFERENCES `turmas` (`id`) ON DELETE CASCADE,
   CONSTRAINT `turma_alunos_ibfk_2` FOREIGN KEY (`fk_aluno`) REFERENCES `alunos` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +243,7 @@ CREATE TABLE `turma_alunos` (
 
 LOCK TABLES `turma_alunos` WRITE;
 /*!40000 ALTER TABLE `turma_alunos` DISABLE KEYS */;
-INSERT INTO `turma_alunos` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,2,6),(7,2,7),(8,2,8),(9,2,9),(10,2,10),(11,3,11),(12,3,12),(13,3,13),(14,3,14),(15,3,15),(16,4,16),(17,4,17),(18,4,18),(19,4,19),(20,4,20);
+INSERT INTO `turma_alunos` VALUES (21,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,2,6),(7,2,7),(8,2,8),(9,2,9),(10,2,10),(11,3,11),(12,3,12),(13,3,13),(14,3,14),(15,3,15),(16,4,16),(17,4,17),(18,4,18),(19,4,19),(20,4,20);
 /*!40000 ALTER TABLE `turma_alunos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +258,7 @@ CREATE TABLE `turmas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,7 +289,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,17 +298,9 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Helder','helder@gmail.com',20,'121.456.789-00','12345','Aluno'),(2,'Matheus','matheus@gmail.com',18,'122.456.789-00','12345','Aluno'),(3,'Ari','ari@gmail.com',27,'123.456.789-00','12345','Aluno'),(4,'Giovanna','giovanna@gmail.com',17,'124.456.789-00','12345','Aluno'),(5,'Gillis','gillis@gmail.com',40,'125.456.789-00','12345','Aluno'),(6,'William','william@gmail.com',17,'126.456.789-00','12345','Aluno'),(7,'Nicholas','',25,'127.456.789-00','12345','Professor'),(8,'Jhonta','jhonta@gmail.com',28,'128.456.789-00','12345','Professor'),(9,'lucas','lucas@gmail.com',23,'129.456.789-00','12345','Aluno'),(10,'caio','caio@gmail.com',34,'130.456.789-00','12345','Aluno'),(11,'alex','alex@gmail.com',23,'000.456.789-00','12345','Aluno'),(12,'Pedro','pedro@gmail.com',21,'001.456.789-00','12345','Aluno'),(13,'Gabriel','gabriel@gmail.com',23,'020.456.789-00','12345','Aluno'),(14,'Rafael','rafael@gmail.com',19,'002.456.789-00','12345','Aluno'),(15,'Felipe','felipe@gmail.com',22,'003.456.789-00','12345','Aluno'),(16,'Gabriele','gabriele@gmail.com',20,'004.456.789-00','12345','Aluno'),(17,'Marcos','marcos@gmail.com',24,'005.456.789-00','12345','Aluno'),(18,'Leonardo','leonardo@gmail.com',18,'006.456.789-00','12345','Aluno'),(19,'Thiago','thiago@gmail.com',21,'007.456.789-00','12345','Aluno'),(20,'Yasmim','yasmim@gmail.com',22,'008.456.789-00','12345','Aluno'),(21,'Daniel','daniel@gmail.com',31,'009.456.789-00','12345','Aluno'),(22,'Bruno','bruno@gmail.com',40,'010.456.789-00','12345','Aluno'),(23,'Fernando','fernando@gmail.com',60,'011.456.789-00','12345','Administrador'),(24,'Fernanda','fernanda@gmail.com',55,'012.456.789-00','12345','Administrador');
+INSERT INTO `usuarios` VALUES (1,'Helder','helder@gmail.com',20,'121.456.789-00','12345','Aluno'),(2,'Matheus','matheus@gmail.com',18,'122.456.789-00','12345','Aluno'),(3,'Ari','ari@gmail.com',27,'123.456.789-00','12345','Aluno'),(4,'Giovanna','giovanna@gmail.com',17,'124.456.789-00','12345','Aluno'),(5,'Gillis','gillis@gmail.com',40,'125.456.789-00','12345','Aluno'),(6,'William','william@gmail.com',17,'126.456.789-00','12345','Aluno'),(7,'Nicholas','nicholas@gmail.com',25,'127.456.789-00','12345','Professor'),(8,'Jhonta','jhonta@gmail.com',28,'128.456.789-00','12345','Professor'),(9,'lucas','lucas@gmail.com',23,'129.456.789-00','12345','Aluno'),(10,'caio','caio@gmail.com',34,'130.456.789-00','12345','Aluno'),(11,'alex','alex@gmail.com',23,'000.456.789-00','12345','Aluno'),(12,'Pedro','pedro@gmail.com',21,'001.456.789-00','12345','Aluno'),(13,'Gabriel','gabriel@gmail.com',23,'020.456.789-00','12345','Aluno'),(14,'Rafael','rafael@gmail.com',19,'002.456.789-00','12345','Aluno'),(15,'Felipe','felipe@gmail.com',22,'003.456.789-00','12345','Aluno'),(16,'Gabriele','gabriele@gmail.com',20,'004.456.789-00','12345','Aluno'),(17,'Marcos','marcos@gmail.com',24,'005.456.789-00','12345','Aluno'),(18,'Leonardo','leonardo@gmail.com',18,'006.456.789-00','12345','Aluno'),(19,'Thiago','thiago@gmail.com',21,'007.456.789-00','12345','Aluno'),(20,'Yasmim','yasmim@gmail.com',22,'008.456.789-00','12345','Aluno'),(21,'Daniel','daniel@gmail.com',31,'009.456.789-00','12345','Aluno'),(22,'Bruno','bruno@gmail.com',40,'010.456.789-00','12345','Aluno'),(23,'Fernando','fernando@gmail.com',60,'011.456.789-00','12345','Administrador'),(24,'Fernanda','fernanda@gmail.com',55,'012.456.789-00','12345','Administrador'),(26,'jose','jose@gmail.com',32,'123.456.147-76','12345','Professor');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'sistema_esc'
---
-
---
--- Dumping routines for database 'sistema_esc'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -259,4 +311,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-11 18:12:19
+-- Dump completed on 2025-04-20 19:49:54

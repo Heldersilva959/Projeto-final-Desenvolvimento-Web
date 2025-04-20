@@ -18,9 +18,6 @@ else {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página do Professor</title>
     <link rel="stylesheet" href="Style/admin.css">
-    <style>
-       
-    </style>
 </head>
 <body>
     <h1>Página do Administrador</h1>

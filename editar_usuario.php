@@ -131,66 +131,7 @@ if (isset($_POST['atualizar'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuário</title>
-    <style>
-        /* Adicione o estilo para o formulário aqui, caso queira personalizar */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 60%;
-            margin: 50px auto;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        label {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        input, select {
-            padding: 10px;
-            margin-top: 5px;
-            font-size: 16px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-        button {
-            background-color: #2196F3;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #0b7dda;
-        }
-        .btn-voltar {
-            background-color: #f44336;
-            color: white;
-            padding: 10px 15px;
-            margin-top: 10px;
-            text-align: center;
-            display: inline-block;
-            width: 100%;
-        }
-        .btn-voltar:hover {
-            background-color: #e53935;
-        }
-    </style>
+    <link rel="stylesheet" href="Style/editUser.css">
 </head>
 <body>
     <div class="container">
