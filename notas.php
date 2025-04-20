@@ -18,13 +18,12 @@
     session_start();
     
     if (!isset($_SESSION['prof_id'])) {
-    
         header("Location: index.html");
-    }
-    else {
+        exit();
+    } else {
         $profId = $_SESSION['prof_id'];
     }
-
+    // Verifica se o usuário é um professor
 
     $sql = "SELECT 
     alunos.matricula,
