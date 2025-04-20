@@ -33,17 +33,13 @@
     notas.nota,
     notas.dataL,
     notas.id AS nota_id
-FROM prof_disc_turma pdt
-INNER JOIN professores ON pdt.fk_prof = professores.id
-INNER JOIN turmas ON pdt.fk_turma = turmas.id
-INNER JOIN disciplinas ON pdt.fk_disc = disciplinas.id
-INNER JOIN turma_alunos ON turma_alunos.fk_turma = turmas.id
-INNER JOIN alunos ON turma_alunos.fk_aluno = alunos.id
+FROM notas
+INNER JOIN alunos ON notas.fk_aluno = alunos.id
 INNER JOIN usuarios ON alunos.fk_user = usuarios.id
-LEFT JOIN notas 
-    ON notas.fk_aluno = alunos.id 
-    AND notas.fk_disc = disciplinas.id
-ORDER BY turma,  aluno, disciplina;
+INNER JOIN disciplinas ON notas.fk_disc = disciplinas.id
+INNER JOIN turma_alunos ON turma_alunos.fk_aluno = alunos.id
+INNER JOIN turmas ON turma_alunos.fk_turma = turmas.id
+ORDER BY turma, aluno, disciplina;
 ";
 
 
