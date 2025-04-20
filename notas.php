@@ -94,7 +94,7 @@ LEFT JOIN notas
     ON notas.fk_aluno = alunos.id 
     AND notas.fk_disc = disciplinas.id
 WHERE professores.fk_user = $profId
-ORDER BY turma, disciplina, aluno;
+ORDER BY turma,  aluno, disciplina;
 ";
 
 
@@ -113,7 +113,7 @@ ORDER BY turma, disciplina, aluno;
                   </tr>";
             
             while ($row = mysqli_fetch_assoc($consulta)) {
-                // Aplicando htmlspecialchars
+                
                 $matricula = htmlspecialchars($row['matricula']);
                 $aluno = htmlspecialchars($row['aluno']);
                 $disciplina = htmlspecialchars($row['disciplina']);

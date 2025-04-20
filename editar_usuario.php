@@ -53,6 +53,32 @@ if (isset($_POST['atualizar'])) {
     // Verifica se o usuário é aluno e atualiza a matrícula
     if ($tipo == 'Aluno') {
         $matricula = $_POST['matricula'];
+        $todas_turmas = mysqli_query($connection, "SELECT * FROM turmas");
+        $turmas_array = mysqli_fetch_all($todas_turmas, MYSQLI_ASSOC);
+
+        $turma_atual_id = null;
+
+            $res_turma = mysqli_query($connection, "SELECT fk_turma FROM turma_alunos WHERE fk_aluno = $usuario_id");
+            $row_turma = mysqli_fetch_assoc($res_turma);
+            $turma_atual_id = $row_turma['fk_turma'] ?? null;
+
+            $turma_id = $_POST['turma'] ?? null;
+
+        if ($turma_id) {
+            // Verifica se já existe uma entrada na tabela turma_alunos
+            $verifica_turma = mysqli_query($connection, "SELECT * FROM turma_alunos WHERE fk_aluno = $usuario_id");
+
+            if (mysqli_num_rows($verifica_turma) > 0) {
+                // Atualiza a turma
+                $sql_update_turma = "UPDATE turma_alunos SET fk_turma = $turma_id WHERE fk_aluno = $usuario_id";
+                mysqli_query($connection, $sql_update_turma);
+            } else {
+                // Insere novo vínculo
+                $sql_insert_turma = "INSERT INTO turma_alunos (fk_aluno, fk_turma) VALUES ($usuario_id, $turma_id)";
+                mysqli_query($connection, $sql_insert_turma);
+            }
+        }
+        
         // Atualiza a tabela de alunos
         if (isset($usuario['matricula'])) {
             $sql_matricula = "UPDATE alunos SET matricula = '$matricula' WHERE fk_user = $usuario_id";
@@ -61,6 +87,32 @@ if (isset($_POST['atualizar'])) {
             // Se o usuário ainda não é aluno, insere a matrícula
             $sql_matricula = "INSERT INTO alunos (fk_user, matricula) VALUES ($usuario_id, '$matricula')";
             mysqli_query($connection, $sql_matricula);
+        }
+    }
+    else if($tipo == 'Professor') {
+        $prof_id = $usuario['prof_id'] ?? null;
+    
+        if (empty($prof_id)) {
+            // Inserir na tabela professores
+            $sql_insert_prof = "INSERT INTO professores (fk_user) VALUES ($usuario_id)";
+            mysqli_query($connection, $sql_insert_prof);
+            $prof_id = mysqli_insert_id($connection); // pega o ID recém-criado
+        } else {
+            // Remove vínculos antigos se já existe
+            $sql_delete = "DELETE FROM prof_disc_turma WHERE fk_prof = $prof_id";
+            mysqli_query($connection, $sql_delete);
+        }
+    
+        // Adiciona novos vínculos (caso existam)
+        if (isset($_POST['disciplinas_turmas'])) {
+            foreach ($_POST['disciplinas_turmas'] as $item) {
+                list($disciplina, $turma) = explode('-', $item);
+    
+                if (!empty($disciplina) && !empty($turma)) {
+                    $sql_insert = "INSERT INTO prof_disc_turma (fk_prof, fk_disc, fk_turma) VALUES ($prof_id, $disciplina, $turma)";
+                    mysqli_query($connection, $sql_insert);
+                }
+            }
         }
     }
 
@@ -169,7 +221,52 @@ if (isset($_POST['atualizar'])) {
             <?php if ($usuario['tipo'] == 'Aluno'): ?>
                 <label for="matricula">Matrícula:</label>
                 <input type="text" id="matricula" name="matricula" value="<?php echo htmlspecialchars($usuario['matricula']); ?>" required>
+                <label for="turma">Turma:</label>
+                <select name="turma" id="turma" required>
+                    <option value="">Selecione a turma</option>
+                    <?php foreach ($turmas_array as $turma): ?>
+                        <option value="<?php echo $turma['id']; ?>" <?php echo ($turma['id'] == $turma_atual_id) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($turma['nome']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             <?php endif; ?>
+            <?php if ($usuario['tipo'] == 'Professor'): ?>
+    <label>Disciplinas e turmas que ministra:</label><br>
+
+    <?php
+    // Buscar todas as disciplinas
+    $disciplinas = mysqli_query($connection, "SELECT * FROM disciplinas");
+    $disciplinas_array = mysqli_fetch_all($disciplinas, MYSQLI_ASSOC);
+
+    // Buscar todas as turmas
+    $turmas = mysqli_query($connection, "SELECT * FROM turmas");
+    $turmas_array = mysqli_fetch_all($turmas, MYSQLI_ASSOC);
+
+    // Verificar se esse professor já tem disciplinas e turmas associadas
+    $atuais = [];
+    if (!empty($usuario['prof_id'])) { // se nao tiver vazio entao executa a consulta
+        // Obter o ID do professor
+        $prof_id = $usuario['prof_id'];
+        $res = mysqli_query($connection, "SELECT fk_disc, fk_turma FROM prof_disc_turma WHERE fk_prof = $prof_id");
+    
+        while ($row = mysqli_fetch_assoc($res)) {
+            $atuais[] = "{$row['fk_disc']}-{$row['fk_turma']}";
+        }
+    }
+    if (empty($atuais)) { // se o array estiver vazio, significa que o professor não tem disciplinas e turmas associadas
+        echo "<p style='color: #888;'>Este professor ainda não ministra nenhuma disciplina. Selecione abaixo para vinculá-lo:</p>";
+    }
+
+    foreach ($disciplinas_array as $disc) {
+        foreach ($turmas_array as $turma) {
+            $valor = "{$disc['id']}-{$turma['id']}";
+            $checked = in_array($valor, $atuais) ? 'checked' : '';
+            echo "<label><input type='checkbox' name='disciplinas_turmas[]' value='$valor' $checked> {$disc['nome']} - {$turma['nome']}</label><br>";
+        }
+    }
+    ?>
+<?php endif; ?>
 
             <button type="submit" name="atualizar">Atualizar</button>
         </form>

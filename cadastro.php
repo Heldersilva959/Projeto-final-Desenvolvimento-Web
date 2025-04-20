@@ -73,6 +73,26 @@ if (isset($_POST['submit'])) {
             mysqli_query($connection, $sql_turma_alunos);
         }
     }
+    else if ($tipo == 'Professor') {
+        // Se for professor, insere na tabela de professores
+        $sql_professores = "INSERT INTO professores (fk_user) 
+                            VALUES ($user_id)";
+        $result_professores = mysqli_query($connection, $sql_professores);
+
+        if (!$result_professores) {
+            die("Erro ao cadastrar professor: " . mysqli_error($connection));
+        }
+    }
+    else if ($tipo == 'Administrador') {
+        // Se for administrador, insere na tabela de administradores
+        $sql_administradores = "INSERT INTO administradores (fk_user) 
+                                VALUES ($user_id)";
+        $result_administradores = mysqli_query($connection, $sql_administradores);
+
+        if (!$result_administradores) {
+            die("Erro ao cadastrar administrador: " . mysqli_error($connection));
+        }
+    }
 
     echo "Cadastro realizado com sucesso!";
     header("Location: cadastro.php");
