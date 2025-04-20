@@ -29,6 +29,15 @@ if (isset($_GET['id'])) {
     }
 }
 
+        $todas_turmas = mysqli_query($connection, "SELECT * FROM turmas");
+        $turmas_array = mysqli_fetch_all($todas_turmas, MYSQLI_ASSOC);
+
+        $turma_atual_id = null;
+        if ($usuario['tipo'] == 'Aluno') {
+            $res_turma = mysqli_query($connection, "SELECT fk_turma FROM turma_alunos WHERE fk_aluno = $usuario_id");
+            $row_turma = mysqli_fetch_assoc($res_turma);
+            $turma_atual_id = $row_turma['fk_turma'] ?? null;
+        }
 // Atualizar os dados do usuário
 if (isset($_POST['atualizar'])) {
     $nome = $_POST['nome'];
@@ -53,14 +62,7 @@ if (isset($_POST['atualizar'])) {
     // Verifica se o usuário é aluno e atualiza a matrícula
     if ($tipo == 'Aluno') {
         $matricula = $_POST['matricula'];
-        $todas_turmas = mysqli_query($connection, "SELECT * FROM turmas");
-        $turmas_array = mysqli_fetch_all($todas_turmas, MYSQLI_ASSOC);
 
-        $turma_atual_id = null;
-
-            $res_turma = mysqli_query($connection, "SELECT fk_turma FROM turma_alunos WHERE fk_aluno = $usuario_id");
-            $row_turma = mysqli_fetch_assoc($res_turma);
-            $turma_atual_id = $row_turma['fk_turma'] ?? null;
 
             $turma_id = $_POST['turma'] ?? null;
 
