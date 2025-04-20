@@ -8,7 +8,6 @@ else {
     $adminId = $_SESSION['admin_id'];
 }
 // Verifica se o usuário é um administrador
-
 ?>
 
 <!DOCTYPE html>
