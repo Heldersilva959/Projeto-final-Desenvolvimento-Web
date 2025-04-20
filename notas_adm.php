@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagina de gerência de notas do professor</title>
+    <title>Pagina de gerência de notas do Administrador</title>
     <link rel="stylesheet" href="Style/notas.css">
     <style>
         
@@ -17,13 +17,13 @@
     include("conexao.php");
     session_start();
     
-    if (!isset($_SESSION['prof_id'])) {
+    if (!isset($_SESSION['admin_id'])) {
         header("Location: index.html");
         exit();
     } else {
-        $profId = $_SESSION['prof_id'];
+        $adminId = $_SESSION['admin_id'];
     }
-    // Verifica se o usuário é um professor
+    // Verifica se o usuário é um admin
 
     $sql = "SELECT 
     alunos.matricula,
@@ -33,19 +33,15 @@
     notas.nota,
     notas.dataL,
     notas.id AS nota_id
-FROM prof_disc_turma pdt
-INNER JOIN professores ON pdt.fk_prof = professores.id
-INNER JOIN turmas ON pdt.fk_turma = turmas.id
-INNER JOIN disciplinas ON pdt.fk_disc = disciplinas.id
-INNER JOIN turma_alunos ON turma_alunos.fk_turma = turmas.id
-INNER JOIN alunos ON turma_alunos.fk_aluno = alunos.id
+FROM notas
+INNER JOIN alunos ON notas.fk_aluno = alunos.id
 INNER JOIN usuarios ON alunos.fk_user = usuarios.id
-LEFT JOIN notas 
-    ON notas.fk_aluno = alunos.id 
-    AND notas.fk_disc = disciplinas.id
-WHERE professores.fk_user = $profId
-ORDER BY turma,  aluno, disciplina;
+INNER JOIN disciplinas ON notas.fk_disc = disciplinas.id
+INNER JOIN turma_alunos ON turma_alunos.fk_aluno = alunos.id
+INNER JOIN turmas ON turma_alunos.fk_turma = turmas.id
+ORDER BY turma, aluno, disciplina;
 ";
+
 
 
     $consulta = mysqli_query($connection, $sql); 
@@ -100,7 +96,7 @@ ORDER BY turma,  aluno, disciplina;
     </div>
     <br><br>
     <div style="text-align: center;">
-        <button onclick="window.location.href='professor.php'">Voltar</button>
+        <button onclick="window.location.href='administrador.php'">Voltar</button>
     </div>
 </body>
 </html>
