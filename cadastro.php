@@ -106,89 +106,27 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Aluno</title>
-    <style>
-               body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            background-color: rgb(0, 0, 0);
-            color: white;
-            padding: 10px;
-            text-align: center;
-            margin: 0;
-        }
-        form {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        input[type="text"], input[type="email"], input[type="password"], select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        #submit {
-            width: 100%;
-            padding: 10px;
-            background-color: dodgerblue;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        #submit:hover {
-            background-color: deepskyblue;
-        }
-        button {
-            background-color: dodgerblue;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: deepskyblue;
-        }
 
-    </style>
+    <link rel="stylesheet" href="Style/cad.css">
 </head>
 <body>
 <h1>Cadastrar Novo Usuario</h1>
     <form action="cadastro.php" method="post">
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
-
+        <input placeholder="Ex: João" class="inputCad" type="text" id="nome" name="nome" required>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="email@dominio.com" required>
+
+        <input placeholder="Ex: aluno@Gmail.com" class="inputCad" type="email" id="email" name="email" required>
 
         <label for="data">Data de Nascimento:</label>
         <input type="text" id="data_nascimento" name="data_nascimento" placeholder="DD/MM/AAAA" required>
 
         <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+        <input  placeholder="Ex: 000.000.000-00" class="inputCad" type="text" id="cpf" name="cpf" required>
+
 
         <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
+        <input placeholder="Ex: Senha123" class="inputCad" type="password" id="senha" name="senha" required>
 
         <label for="tipo">Tipo:</label>
         <select id="tipo" name="tipo" required>
@@ -201,7 +139,8 @@ if (isset($_POST['submit'])) {
         <div id="para_aluno">
             <label for="sealuno">caso a opção anterior seja 'Aluno' adicione: </label>
         <label for="matricula">Matrícula:</label>
-        <input type="text" id="matricula" name="matricula">
+
+         <input placeholder="Ex: 123456" class="inputCad" type="text" id="matricula" name="matricula" required>
         <label for="turma">Turma:</label>
         <select id="turma" name="turma">
             <option value="">Selecione:</option>
@@ -221,7 +160,8 @@ if (isset($_POST['submit'])) {
         </select>
         </div>
 
-        <input type="submit" name="submit" id="submit">
+
+        <input class="inputCad" type="submit" name="submit" id="submit">
     </form>
     <div style="text-align: center;">
         <button onclick="window.location.href='administrador.php'">Voltar</button>
