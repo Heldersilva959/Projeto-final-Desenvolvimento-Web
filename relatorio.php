@@ -16,33 +16,27 @@ $adminId = $_SESSION['admin_id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório - Admin</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        h1 { text-align: center; }
-        .form-container { max-width: 800px; margin: 0 auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        select, input[type="submit"] { padding: 8px; margin-top: 10px; }
-    </style>
+    <link rel="stylesheet" href="Style/relatorio.css">
 </head>
 <body>
     <h1>Relatório Geral dos Alunos</h1>
     <div class="form-container">
-        <form method="GET">
-            <label for="turma">Filtrar por Turma:</label><br>
-            <select name="turma" id="turma">
-                <option value="">Todas as Turmas</option>
-                <?php
-                $turmas = mysqli_query($connection, "SELECT id, nome FROM turmas");
-                while ($t = mysqli_fetch_assoc($turmas)) {
-                    $selected = isset($_GET['turma']) && $_GET['turma'] == $t['id'] ? "selected" : "";
-                    echo "<option value='" . $t['id'] . "' $selected>" . $t['nome'] . "</option>";
-                }
-                ?>
-            </select><br>
-            <input type="submit" value="Filtrar">
-        </form>
+        <div class="form-filter" >
+            <form method="GET">
+                <label for="turma">Filtrar por Turma:</label><br>
+                <select name="turma" id="turma">
+                    <option value="">Todas as Turmas</option>
+                    <?php
+                    $turmas = mysqli_query($connection, "SELECT id, nome FROM turmas");
+                    while ($t = mysqli_fetch_assoc($turmas)) {
+                        $selected = isset($_GET['turma']) && $_GET['turma'] == $t['id'] ? "selected" : "";
+                        echo "<option value='" . $t['id'] . "' $selected>" . $t['nome'] . "</option>";
+                    }
+                    ?>
+                </select><br>
+                <input type="submit" value="Filtrar">
+            </form>
+        </div>
 
         <?php
         $where = "";
@@ -70,6 +64,7 @@ $adminId = $_SESSION['admin_id'];
         $resultado = mysqli_query($connection, $sql);
 
         if ($resultado && mysqli_num_rows($resultado) > 0) {
+            echo "<div class='table-container'>";
             echo "<table>";
             echo "<tr>
                     <th>Matrícula</th>
@@ -90,12 +85,16 @@ $adminId = $_SESSION['admin_id'];
                       </tr>";
             }
             echo "</table>";
+            echo "</div>";
         } else {
             echo "<p>Nenhum resultado encontrado.</p>";
         }
 
         mysqli_close($connection);
         ?>
+    </div>
+    <div style="text-align: center;">
+        <button onclick="window.location.href='administrador.php'">Voltar</button>
     </div>
 </body>
 </html>
