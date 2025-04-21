@@ -82,6 +82,7 @@
 <p>Projeto desenvolvido por: :</p>
 <ul>
   <li>Helder Araujo Silva</li>
+  <li>Pedro Alonso Ribeiro Ferreira da Silva</li>
 </ul>
 
 <hr>

@@ -169,7 +169,7 @@ if (isset($_POST['submit'])) {
         <input class="inputCad" type="submit" name="submit" id="submit">
     </form>
     <div style="text-align: center;">
-        <button onclick="window.location.href='administrador.php'">Voltar</button>
+        <button class="button-cadastro" onclick="window.location.href='administrador.php'">Voltar</button>
     </div>
 </body>
 </html>
