@@ -6,6 +6,18 @@ if (!isset($_SESSION['admin_id'])) {
 }
 else {
     $adminId = $_SESSION['admin_id'];
+    $sql = "SELECT tipo FROM usuarios WHERE id = $adminId";
+    $consulta = mysqli_query($connection, $sql);
+    if ($consulta) {
+        $row = mysqli_fetch_assoc($consulta);
+        $tipo = $row['tipo'];
+        if ($tipo != 'Administrador') {
+            header("Location: index.html");
+            exit();
+        }
+    } else {
+        die("Erro ao verificar tipo de usuário: " . mysqli_error($connection));
+    }
 }
 // Verifica se o usuário é um administrador
 ?>

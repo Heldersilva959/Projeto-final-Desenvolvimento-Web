@@ -6,6 +6,18 @@ if (!isset($_SESSION['prof_id'])) {
 }
 else {
     $profId = $_SESSION['prof_id'];
+    $sql = "SELECT tipo FROM usuarios WHERE id = $profId";
+    $consulta = mysqli_query($connection, $sql);
+    if ($consulta) {
+        $row = mysqli_fetch_assoc($consulta);
+        $tipo = $row['tipo'];
+        if ($tipo != 'Professor') {
+            header("Location: index.html");
+            exit();
+        }
+    } else {
+        die("Erro ao verificar tipo de usuário: " . mysqli_error($connection));
+    }
 }
 // Verifica se o usuário é um professor
 ?>

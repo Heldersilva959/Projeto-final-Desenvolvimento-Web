@@ -4,8 +4,21 @@ if (!isset($_SESSION['aluno_id'])) {
     header("Location: index.html");
     exit;
 }
-
+else{
 $alunoId = ($_SESSION['aluno_id']); // segurança contra SQL injection
+$sql = "SELECT tipo FROM usuarios WHERE id = $alunoId";
+$consulta = mysqli_query($connection, $sql);
+if ($consulta) {
+    $row = mysqli_fetch_assoc($consulta);
+    $tipo = $row['tipo'];
+    if ($tipo != 'Aluno') {
+        header("Location: index.html");
+        exit;
+    }
+} else {
+    die("Erro ao verificar tipo de usuário: " . mysqli_error($connection));
+}
+}
 ?>
 
 <!DOCTYPE html>
