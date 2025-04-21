@@ -87,9 +87,18 @@ $consulta = mysqli_query($connection, $sql);
 <body>
     <h1>Relatório de Notas - Administração</h1>
 
-    <form method="GET" action="">
+    <form 
+        style="
+               margin: 2em;
+               text-align: center;
+               "
+    method="GET" action="">
         <label for="turma">Filtrar por Turma:</label>
-        <select name="turma" id="turma">
+        <select
+            style="
+               width: 200px;
+              " 
+        name="turma" id="turma">
             <option value="">Todas</option>
             <?php
             $turmas = getTurmas($connection);
@@ -101,7 +110,11 @@ $consulta = mysqli_query($connection, $sql);
         </select>
 
         <label for="professor">Filtrar por Professor:</label>
-        <select name="professor" id="professor">
+        <select
+            style="
+               width: 200px;
+              " 
+        name="professor" id="professor">
             <option value="">Todos</option>
             <?php
             $profs = getProfessores($connection);
@@ -113,7 +126,11 @@ $consulta = mysqli_query($connection, $sql);
         </select>
 
         <label for="disciplina">Filtrar por Disciplina:</label>
-        <select name="disciplina" id="disciplina">
+        <select
+            style="
+               width: 200px;
+              " 
+        name="disciplina" id="disciplina">
             <option value="">Todas</option>
             <?php
             $disciplinas = getDisciplinas($connection);
@@ -125,7 +142,11 @@ $consulta = mysqli_query($connection, $sql);
         </select>
 
         <label for="ordem">Ordenar por:</label>
-        <select name="ordem" id="ordem">
+        <select
+            style="
+               width: 200px;
+              " 
+            name="ordem" id="ordem">
             <option value="">Padrão</option>
             <option value="nome_asc" <?= $filtroOrdem == 'nome_asc' ? 'selected' : '' ?>>Nome (A-Z)</option>
             <option value="nota_desc" <?= $filtroOrdem == 'nota_desc' ? 'selected' : '' ?>>Maiores Notas</option>
@@ -134,12 +155,23 @@ $consulta = mysqli_query($connection, $sql);
 
         <button type="submit">Filtrar</button>
     </form>
-
     <br>
 
     <?php
     if ($consulta && mysqli_num_rows($consulta) > 0) {
-        echo "<table>";
+        echo "<div
+            style='
+                    display: flex;
+                   justify-content: center;
+                   align-items: center;
+                   '
+        >";
+        echo "<table
+                style='
+                        height: 100%;
+                        width: 100%;
+                       '
+                >";
         echo "<tr>
                 <th>Matrícula</th>
                 <th>Aluno</th>
@@ -162,11 +194,27 @@ $consulta = mysqli_query($connection, $sql);
                   </tr>";
         }
         echo "</table>";
+        echo "</div>";
     } else {
         echo "<p>Nenhum resultado encontrado.</p>";
     }
 
     mysqli_close($connection);
     ?>
+           <div style="text-align: center;">
+           <a style="
+           background-color: dodgerblue;
+           color: white;
+           border: none;
+           padding: 10px 20px;
+           text-align: center;
+           text-decoration: none;
+           display: inline-block;
+           font-size: 16px;
+           margin: 10px 2px;
+           cursor: pointer;
+           border-radius: 5px;"
+           href="administrador.php" class="btn btn-voltar">Voltar</a>
+       </div>
 </body>
 </html>
