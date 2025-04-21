@@ -82,11 +82,7 @@ $consulta = mysqli_query($connection, $sql);
 <head>
     <meta charset="UTF-8">
     <title>Relatório Administrativo</title>
-    <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-        th { background-color: #f0f0f0; }
-    </style>
+    <link rel="stylesheet" href="Style/relatorio.css">
 </head>
 <body>
     <h1>Relatório de Notas - Administração</h1>
