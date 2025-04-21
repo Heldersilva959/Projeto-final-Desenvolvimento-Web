@@ -1,4 +1,5 @@
 <?php 
+include("conexao.php"); // Inclui o arquivo de conexão com o banco de dados
 session_start();
 if (!isset($_SESSION['prof_id'])) {
     

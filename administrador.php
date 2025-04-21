@@ -45,7 +45,11 @@ else {
     </form>
 
     <form action="gerenciar_turma.php" method="post">
-        <button type="submit">gerenciar turmas</button>
+        <button type="submit">Gerenciar Turmas</button>
+    </form>
+
+    <form action="gerenciar_disciplinas.php" method="post">
+        <button type="submit">Gerenciar Disciplinas</button>
     </form>
 
     <form action="relatorio.php" method="post"> 
