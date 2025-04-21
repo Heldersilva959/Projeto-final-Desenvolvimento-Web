@@ -1,5 +1,5 @@
 <?php 
-include("conexao.php");
+include_once("conexao.php");
 session_start();
 if (!isset($_SESSION['prof_id'])) {
     
