@@ -19,9 +19,15 @@ function getProfessores($connection) {
     return mysqli_query($connection, $sql);
 }
 
+function getDisciplinas($connection) {
+    $sql = "SELECT id, nome FROM disciplinas ORDER BY nome";
+    return mysqli_query($connection, $sql);
+}
+
 $filtroTurma = isset($_GET['turma']) ? $_GET['turma'] : '';
 $filtroOrdem = isset($_GET['ordem']) ? $_GET['ordem'] : '';
 $filtroProfessor = isset($_GET['professor']) ? $_GET['professor'] : '';
+$filtroDisciplina = isset($_GET['disciplina']) ? $_GET['disciplina'] : '';
 
 $sql = "SELECT 
             alunos.matricula,
@@ -49,6 +55,9 @@ if (!empty($filtroTurma)) {
 }
 if (!empty($filtroProfessor)) {
     $sql .= " AND professores.id = " . intval($filtroProfessor);
+}
+if (!empty($filtroDisciplina)) {
+    $sql .= " AND disciplinas.id = " . intval($filtroDisciplina);
 }
 
 switch ($filtroOrdem) {
@@ -103,6 +112,18 @@ $consulta = mysqli_query($connection, $sql);
             while ($p = mysqli_fetch_assoc($profs)) {
                 $selected = ($filtroProfessor == $p['id']) ? 'selected' : '';
                 echo "<option value='{$p['id']}' $selected>{$p['nome']}</option>";
+            }
+            ?>
+        </select>
+
+        <label for="disciplina">Filtrar por Disciplina:</label>
+        <select name="disciplina" id="disciplina">
+            <option value="">Todas</option>
+            <?php
+            $disciplinas = getDisciplinas($connection);
+            while ($d = mysqli_fetch_assoc($disciplinas)) {
+                $selected = ($filtroDisciplina == $d['id']) ? 'selected' : '';
+                echo "<option value='{$d['id']}' $selected>{$d['nome']}</option>";
             }
             ?>
         </select>
