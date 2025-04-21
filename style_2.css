@@ -77,6 +77,8 @@ header {
     display: flex;
     width: 100%;
     height: 800px;
+    background-image: url(https://www.unicesumar.edu.br/blog/wp-content/uploads/2017/08/tecnologia-da-informacao.jpeg);
+    background-position: center;
 }
 
 .intro-launcher p {
@@ -84,6 +86,7 @@ header {
     margin-top: 300px;
     padding-left: 300px;
     color: #e6edeb;
+
 }
 
 .box-line-intro{
@@ -772,7 +775,6 @@ footer button {
     background-color: #007d7a;
 }
 
-/* */
 .cont-btn .btn-back a{
     color: #ffffff;
 }
@@ -794,6 +796,16 @@ footer button {
     color: #000000;
 }
 
+.img-intro{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    z-index: -1;
+}
+.p-line-intro{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
 
 @media screen and (max-width: 768px) {
     .courses{
@@ -861,7 +873,7 @@ footer button {
     .stat p {
         font-size: 12px;
     }
-}
+
 
 @media screen and (max-width: 768px) {
     footer {
@@ -1094,3 +1106,4 @@ footer button {
     font-size: 0.9rem;
     color: #555;
   }
+}

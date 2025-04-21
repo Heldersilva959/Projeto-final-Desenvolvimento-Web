@@ -459,6 +459,7 @@ JOIN turmas t ON pdt.fk_turma = t.id
 ORDER BY nome_professor, nome_turma, nome_disciplina;
 
 
+<<<<<<< HEAD
 SELECT 
   u.nome AS nome_aluno,
   t.nome AS nome_turma,
@@ -517,3 +518,12 @@ ORDER BY
 use sistema_esc;
 select * from professores;
 SELECT tipo FROM usuarios WHERE id = 1
+=======
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+>>>>>>> 29fd7e4a00d6d31129762f3277c8ef8c1751ff20
