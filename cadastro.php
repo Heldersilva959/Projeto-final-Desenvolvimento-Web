@@ -1,4 +1,4 @@
-<?php
+<?php 
 include_once("conexao.php");
 
 if (isset($_POST['submit'])) {
@@ -94,8 +94,8 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    echo "Cadastro realizado com sucesso!";
-    header("Location: cadastro.php");
+    // Redirecionamento com sucesso
+    header("Location: cadastro.php?success=1");
     exit;
 }
 ?>
@@ -109,6 +109,10 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="Style/cad.css">
 </head>
 <body>
+<?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+    <script>alert('Cadastro realizado com sucesso!');</script>
+<?php endif; ?>
+
 <h1>Cadastrar Novo Usuario</h1>
     <form action="cadastro.php" method="post">
         <label for="nome">Nome:</label>
@@ -122,7 +126,6 @@ if (isset($_POST['submit'])) {
 
         <label for="cpf">CPF:</label> 
         <input  placeholder="Ex: 000.000.000-00" class="inputCad" type="text" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
-
 
         <label for="senha">Senha:</label>
         <input placeholder="Ex: Senha123" class="inputCad" type="password" id="senha" name="senha" required>
@@ -139,31 +142,29 @@ if (isset($_POST['submit'])) {
 
         <div id="para_aluno">
             <label for="sealuno">caso a opção anterior seja 'Aluno' adicione: </label>
-        <label for="matricula">Matrícula:</label>
+            <label for="matricula">Matrícula:</label>
+            <input placeholder="Ex: 123456" class="inputCad" type="text" id="matricula" name="matricula" pattern="\d{6}" required>
 
-         <input placeholder="Ex: 123456" class="inputCad" type="text" id="matricula" name="matricula" pattern="\d{6}" required>
-        <label for="turma">Turma:</label>
-        <div >
-            <select style=" margin-left: 2em; margin-bottom: 1em; border-radius: 5px; border: 1px solid #ccc;" id="turma" name="turma">
-                <option value="">Selecione:</option>
-                <?php
-                // Consulta para obter as turmas
-                $sql_turmas = "SELECT id, nome FROM turmas";
-                $result_turmas = mysqli_query($connection, $sql_turmas);
+            <label for="turma">Turma:</label>
+            <div>
+                <select style=" margin-left: 2em; margin-bottom: 1em; border-radius: 5px; border: 1px solid #ccc;" id="turma" name="turma">
+                    <option value="">Selecione:</option>
+                    <?php
+                    // Consulta para obter as turmas
+                    $sql_turmas = "SELECT id, nome FROM turmas";
+                    $result_turmas = mysqli_query($connection, $sql_turmas);
 
-                if ($result_turmas && mysqli_num_rows($result_turmas) > 0) {
-                    while ($row = mysqli_fetch_assoc($result_turmas)) {
-                        echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
+                    if ($result_turmas && mysqli_num_rows($result_turmas) > 0) {
+                        while ($row = mysqli_fetch_assoc($result_turmas)) {
+                            echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
+                        }
+                    } else {
+                        echo "<option value=''>Nenhuma turma encontrada</option>";
                     }
-                } else {
-                    echo "<option value=''>Nenhuma turma encontrada</option>";
-                }
-                ?>
-            </select>
+                    ?>
+                </select>
+            </div>
         </div>
-       
-        </div>
-
 
         <input class="inputCad" type="submit" name="submit" id="submit">
     </form>
