@@ -1,4 +1,5 @@
 <?php 
+include_once("conexao.php");
 session_start();
 if (!isset($_SESSION['aluno_id'])) {
     header("Location: index.html");
