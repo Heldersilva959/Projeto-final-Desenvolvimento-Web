@@ -143,7 +143,7 @@ if (isset($_POST['submit'])) {
         <div id="para_aluno">
             <label for="sealuno">caso a opção anterior seja 'Aluno' adicione: </label>
             <label for="matricula">Matrícula:</label>
-            <input placeholder="Ex: 123456" class="inputCad" type="text" id="matricula" name="matricula" pattern="\d{6}" required>
+            <input placeholder="Ex: 123456" class="inputCad" type="text" id="matricula" name="matricula" pattern="\d{6}">
 
             <label for="turma">Turma:</label>
             <div>

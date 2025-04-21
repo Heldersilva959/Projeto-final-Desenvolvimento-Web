@@ -26,6 +26,8 @@
     // Verifica se o usuário é um professor
 
     $sql = "SELECT 
+    alunos.id AS aluno_id,
+    disciplinas.id AS disciplina_id,
     alunos.matricula,
     usuarios.nome AS aluno,
     disciplinas.nome AS disciplina,
@@ -62,30 +64,35 @@ ORDER BY turma,  aluno, disciplina;
                     <th>Alterar Nota</th>
                   </tr>";
             
-            while ($row = mysqli_fetch_assoc($consulta)) {
+                  while ($row = mysqli_fetch_assoc($consulta)) {
+                    $matricula = htmlspecialchars($row['matricula']);
+                    $aluno = htmlspecialchars($row['aluno']);
+                    $disciplina = htmlspecialchars($row['disciplina']);
+                    $nota = is_null($row['nota']) ? 0 : htmlspecialchars($row['nota']);
+                    $data = is_null($row['dataL']) ? '-' : htmlspecialchars($row['dataL']);
+                    $nota_id = htmlspecialchars($row['nota_id']);
+                    $aluno_id = htmlspecialchars($row['aluno_id']);
+                    $disciplina_id = htmlspecialchars($row['disciplina_id']);
                 
-                $matricula = htmlspecialchars($row['matricula']);
-                $aluno = htmlspecialchars($row['aluno']);
-                $disciplina = htmlspecialchars($row['disciplina']);
-                $nota = htmlspecialchars($row['nota']);
-                $data = htmlspecialchars($row['dataL']);
-                $nota_id = htmlspecialchars($row['nota_id']);
-
-                echo "<tr>";
-                echo "<td>$matricula</td>";
-                echo "<td>$aluno</td>";
-                echo "<td>$disciplina</td>";
-                echo "<td>$nota</td>";
-                echo "<td>$data</td>";
-                echo "<td>
-                        <form action='editar.php' method='post'>
-                            <input type='hidden' name='nota_id' value='$nota_id'> 
-                            <input type='text' name='nova_nota' value='$nota'>
-                            <button type='submit'>Atualizar</button>
-                        </form>
-                      </td>";
-                echo "</tr>";
-            }
+                    echo "<tr>";
+                    echo "<td>$matricula</td>";
+                    echo "<td>$aluno</td>";
+                    echo "<td>$disciplina</td>";
+                    echo "<td>$nota</td>";
+                    echo "<td>$data</td>";
+                    echo "<td>
+                            <form action='editar.php' method='post'>
+                                <input type='hidden' name='nota_id' value='$nota_id'> 
+                                <input type='hidden' name='aluno_id' value='$aluno_id'>
+                                <input type='hidden' name='prof_id' value='$profId'>
+                                <input type='hidden' name='disciplina_id' value='$disciplina_id'>
+                                <input type='text' name='nova_nota' value='$nota' size='4'>
+                                <button type='submit'>Atualizar</button>
+                            </form>
+                          </td>";
+                    echo "</tr>";
+                }
+                
             
             echo "</table>";
         } else {
