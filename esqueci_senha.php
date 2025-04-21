@@ -1,8 +1,8 @@
 <?php
-include("conexao.php");
+require 'conexao.php'; // $connection deve estar definido com mysqli_connect
 
 // Verifica conexão com o banco
-if ($connection->connect_error) {
+if (mysqli_connect_errno()) {
     die("<script>
         alert('Erro ao conectar ao banco de dados.');
         window.location.href = 'index.html';
@@ -15,98 +15,86 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Captura e valida os dados
-$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-$cpf = filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_STRING);
-$senha1 = $_POST['nova-senha'] ?? '';
-$senha2 = $_POST['confirma-senha'] ?? '';
+// Captura e valida dados
+$email = $_POST['email'] ?? '';
+$cpf = $_POST['cpf'] ?? '';
+$senha1 = $_POST['senha1'] ?? '';
+$senha2 = $_POST['senha2'] ?? '';
 
-
-// Validações
-$erros = [];
-
-if (!$email) {
-    $erros[] = 'E-mail inválido.';
-}
-
-if (strlen($cpf) != 11 || !is_numeric($cpf)) {
-    $erros[] = 'CPF inválido (deve conter 11 dígitos numéricos).';
-}
-
-// Validação da senha
-if (empty($senha1)) {
-    $erros[] = 'A senha não pode estar vazia.';
-} 
-
+// Verifica se as senhas coincidem
 if ($senha1 !== $senha2) {
-    $erros[] = 'As senhas não coincidem.';
-}
-
-// Se houver erros, exibe e volta
-if (!empty($erros)) {
     echo "<script>
-        alert('".implode("\\n", $erros)."');
+        alert('As senhas não coincidem.');
         history.back();
     </script>";
     exit;
 }
 
-try {
-    // Inicia transação para garantir atomicidade
-    $connection->begin_transaction();
-    
-    // Consulta o usuário na tabela usuarios
-    $stmt = $connection->prepare("SELECT id FROM usuarios WHERE email = ? AND cpf = ?");
-    if (!$stmt) {
-        throw new Exception("Erro na preparação da consulta: " . $connection->error);
+// Inicia transação
+mysqli_autocommit($connection, false);
+$error = false;
+
+// Consulta com prepared statement
+$query = "SELECT id FROM usuarios WHERE email = ? AND cpf = ? FOR UPDATE";
+$stmt = mysqli_prepare($connection, $query);
+
+if (!$stmt) {
+    $error = "Erro na preparação da consulta: " . mysqli_error($connection);
+} else {
+    mysqli_stmt_bind_param($stmt, "ss", $email, $cpf);
+
+    if (!mysqli_stmt_execute($stmt)) {
+        $error = "Erro na execução da consulta: " . mysqli_stmt_error($stmt);
+    } else {
+        $result = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($result) === 0) {
+            $error = 'Combinação de e-mail e CPF não encontrada.';
+        } else {
+            $usuario = mysqli_fetch_assoc($result);
+
+            // Atualiza a senha
+            $novaSenha = $senha1;
+            $update_query = "UPDATE usuarios SET senha = ? WHERE id = ?";
+            $update_stmt = mysqli_prepare($connection, $update_query);
+
+            if (!$update_stmt) {
+                $error = "Erro na preparação do update: " . mysqli_error($connection);
+            } else {
+                mysqli_stmt_bind_param($update_stmt, "si", $novaSenha, $usuario['id']);
+
+                if (!mysqli_stmt_execute($update_stmt)) {
+                    $error = "Erro ao atualizar senha: " . mysqli_stmt_error($update_stmt);
+                }
+
+                mysqli_stmt_close($update_stmt);
+            }
+        }
+
+        mysqli_free_result($result);
     }
-    
-    $stmt->bind_param("ss", $email, $cpf);
-    if (!$stmt->execute()) {
-        throw new Exception("Erro na execução da consulta: " . $stmt->error);
-    }
-    
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows === 0) {
-        throw new Exception('Combinação de e-mail e CPF não encontrada.');
-    }
-    
-    $usuario = $result->fetch_assoc();
-    
-    // Atualiza a senha na tabela usuarios
-    $novaSenhaCriptografada = password_hash($senha1, PASSWORD_BCRYPT);
-    $stmt = $connection->prepare("UPDATE usuarios SET senha = ? WHERE email = ? AND cpf = ?");
-    if (!$stmt) {
-        throw new Exception("Erro na preparação do update: " . $connection->error);
-    }
-    
-    $stmt->bind_param("si", $novaSenhaCriptografada, $usuario['id']);
-    if (!$stmt->execute()) {
-        throw new Exception("Erro ao atualizar senha: " . $stmt->error);
-    }
-    
-    // Confirma a transação
-    $connection->commit();
-    
+
+    mysqli_stmt_close($stmt);
+}
+
+// Commit ou rollback
+if ($error) {
+    mysqli_rollback($connection);
+    error_log("Erro na redefinição de senha: " . $error);
+
+    echo "<script>
+        alert('Erro ao processar sua solicitação. Tente novamente mais tarde.');
+        history.back();
+    </script>";
+} else {
+    mysqli_commit($connection);
     echo "<script>
         alert('Senha alterada com sucesso!');
         window.location.href = 'index.html';
     </script>";
-    
-} catch (Exception $e) {
-    // Desfaz a transação em caso de erro
-    $connection->rollback();
-    
-    error_log("Erro na redefinição de senha: " . $e->getMessage());
-    
-    echo "<script>
-        alert('".addslashes($e->getMessage())."');
-        history.back();
-    </script>";
-} finally {
-    // Fecha as conexões
-    if (isset($stmt)) $stmt->close();
-    $connection->close();
 }
+
+// Finaliza
+mysqli_autocommit($connection, true);
+mysqli_close($connection);
 ?>
