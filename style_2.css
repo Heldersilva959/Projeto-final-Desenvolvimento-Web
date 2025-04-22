@@ -833,7 +833,7 @@ footer button {
         justify-content: center;
         text-align: center;
     }
-}
+
     .about-tittle {
         width: 100%;
         height: auto;
@@ -874,6 +874,7 @@ footer button {
         font-size: 12px;
     }
 
+}
 
 @media screen and (max-width: 768px) {
     footer {
