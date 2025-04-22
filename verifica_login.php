@@ -18,15 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($user['tipo'] === 'Aluno') {
                 $_SESSION['aluno_id'] = $user['id']; // Guarda ID do aluno na sessão
-            header("Location: aluno.php?aluno_id=". $user['id']);// envia para pagina do aluno
+            header("Location: aluno.php");// envia para pagina do aluno
             
         } elseif ($user['tipo'] === 'Professor') {
             $_SESSION['prof_id'] = $user['id']; //Guarda ID do professor
-            header("Location: professor.php?prof_id=". $user['id']);// envia para pagina do prof
+            header("Location: professor.php");// envia para pagina do prof
         }
      elseif ($user['tipo'] === 'Administrador') {
         $_SESSION['admin_id'] = $user['id']; //Guarda ID do administrador
-        header("Location: administrador.php?admin_id=". $user['id']);// envia para pagina do admin
+        header("Location: administrador.php");// envia para pagina do admin
     }
     }
     else{

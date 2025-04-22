@@ -2,10 +2,8 @@
 include_once("conexao.php");
 session_start();
 if (!isset($_SESSION['admin_id'])) {
-    
     header("Location: index.html");
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -14,55 +12,14 @@ if (!isset($_SESSION['admin_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página do Professor</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        h1 {
-            background-color: rgb(0 0 0);
-            color: white;
-            padding: 10px;
-            text-align: center;
-            margin: 0;
-        }
-        p {
-            text-align: center;
-            font-size: 16px;
-            margin: 20px 0;
-        }
-        form {
-            display: flex;
-            justify-content: center;
-            margin: 10px;
-        }
-        button {
-            background-color: dodgerblue;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 10px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: deepskyblue;
-        }
-    </style>
+    <link rel="stylesheet" href="Style/admin.css">
 </head>
 <body>
     <h1>Página do Administrador</h1>
     <p>Bem-vindo à página do administrador! Aqui você pode gerenciar suas atividades.</p>
 
-    <form action="notas.php" method="post">
-        <button type="submit">Ver Notas dos Alunos</button>
+    <form action="notas_adm.php" method="post">
+        <button type="submit">Gerenciar Notas dos Alunos</button>
     </form>
     <form action="cadastro.php" method="post">
         <button type="submit">Cadastrar Novos Usuários</button> 
@@ -72,7 +29,11 @@ if (!isset($_SESSION['admin_id'])) {
     </form>
 
     <form action="gerenciar_turma.php" method="post">
-        <button type="submit">gerenciar turmas</button>
+        <button type="submit">Gerenciar Turmas</button>
+    </form>
+
+    <form action="gerenciar_disciplinas.php" method="post">
+        <button type="submit">Gerenciar Disciplinas</button>
     </form>
 
     <form action="relatorio.php" method="post"> 
@@ -82,6 +43,7 @@ if (!isset($_SESSION['admin_id'])) {
     <form action="index.html" method="post">
         <button type="submit">Deslogar</button> 
     </form>
+   
 </body>
 </html>
 

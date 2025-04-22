@@ -1,9 +1,26 @@
 <?php 
+include_once("conexao.php");
 session_start();
 if (!isset($_SESSION['prof_id'])) {
     
     header("Location: index.html");
 }
+else {
+    $profId = $_SESSION['prof_id'];
+    $sql = "SELECT tipo FROM usuarios WHERE id = $profId";
+    $consulta = mysqli_query($connection, $sql);
+    if ($consulta) {
+        $row = mysqli_fetch_assoc($consulta);
+        $tipo = $row['tipo'];
+        if ($tipo != 'Professor') {
+            header("Location: index.html");
+            exit();
+        }
+    } else {
+        die("Erro ao verificar tipo de usuário: " . mysqli_error($connection));
+    }
+}
+// Verifica se o usuário é um professor
 ?>
 
 <!DOCTYPE html>
@@ -12,48 +29,7 @@ if (!isset($_SESSION['prof_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página do Professor</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        h1 {
-            background-color: rgb(0 0 0);
-            color: white;
-            padding: 10px;
-            text-align: center;
-            margin: 0;
-        }
-        p {
-            text-align: center;
-            font-size: 16px;
-            margin: 20px 0;
-        }
-        form {
-            display: flex;
-            justify-content: center;
-            margin: 10px;
-        }
-        button {
-            background-color: dodgerblue;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 10px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: deepskyblue;
-        }
-    </style>
+    <link rel="stylesheet" href="Style/professor.css">
 </head>
 <body>
     <h1>Página do Professor</h1>
