@@ -7,11 +7,12 @@ if (!isset($_SESSION['prof_id'])) {
 }
 else {
     $profId = $_SESSION['prof_id'];
-    $sql = "SELECT tipo FROM usuarios WHERE id = $profId";
+    $sql = "SELECT nome, tipo FROM usuarios WHERE id = $profId";
     $consulta = mysqli_query($connection, $sql);
     if ($consulta) {
         $row = mysqli_fetch_assoc($consulta);
         $tipo = $row['tipo'];
+        $nome = $row['nome'];
         if ($tipo != 'Professor') {
             header("Location: index.html");
             exit();
@@ -33,7 +34,7 @@ else {
 </head>
 <body>
     <h1>Página do Professor</h1>
-    <p>Bem-vindo, à página do professor! Aqui você pode gerenciar suas atividades.</p>
+    <p>Bem-vindo, <?= htmlspecialchars($nome) ?>! Aqui você pode gerenciar suas atividades.</p>
 
     <form action="notas.php" method="post">
         <button type="submit">Ver Notas dos Alunos</button>

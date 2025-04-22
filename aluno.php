@@ -7,11 +7,12 @@ if (!isset($_SESSION['aluno_id'])) {
 }
 else{
 $alunoId = ($_SESSION['aluno_id']); // segurança contra SQL injection
-$sql = "SELECT tipo FROM usuarios WHERE id = $alunoId";
+$sql = "SELECT nome, tipo FROM usuarios WHERE id = $alunoId";
 $consulta = mysqli_query($connection, $sql);
 if ($consulta) {
     $row = mysqli_fetch_assoc($consulta);
     $tipo = $row['tipo'];
+    $nome = $row['nome'];
     if ($tipo != 'Aluno') {
         header("Location: index.html");
         exit;
@@ -32,6 +33,7 @@ if ($consulta) {
 </head>
 <body>
     <h1>BOLETIM DO ALUNO:</h1>
+    <h2 class="nome-aluno">Bem-vindo, <?= htmlspecialchars($nome) ?>!</h2>
     <div>
         <?php
         include("conexao.php");
