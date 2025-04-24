@@ -616,6 +616,7 @@ footer button {
 
 .btn-back a{
     color: #ffffff;
+    
 }
 
 .btn-back {
@@ -625,6 +626,7 @@ footer button {
     border: solid 1px #ffffff;
     border-radius: 50px;
     cursor: pointer;
+    color: #ffffff;
 }
 
 .btn-back:hover {
