@@ -3,6 +3,21 @@ include_once("conexao.php");
 session_start();
 if (!isset($_SESSION['admin_id'])) {
     header("Location: index.html");
+} else {
+    $adminId = $_SESSION['admin_id'];
+    $sql = "SELECT nome, tipo FROM usuarios WHERE id = $adminId";
+    $consulta = mysqli_query($connection, $sql);
+    if ($consulta) {
+        $row = mysqli_fetch_assoc($consulta);
+        $tipo = $row['tipo'];
+        $nome = $row['nome'];
+        if ($tipo != 'Administrador') {
+            header("Location: index.html");
+            exit();
+        }
+    } else {
+        die("Erro ao verificar tipo de usuário: " . mysqli_error($connection));
+    }
 }
 ?>
 
@@ -16,7 +31,7 @@ if (!isset($_SESSION['admin_id'])) {
 </head>
 <body>
     <h1>Página do Administrador</h1>
-    <p>Bem-vindo à página do administrador! Aqui você pode gerenciar suas atividades.</p>
+    <p>Bem-vindo, <?= htmlspecialchars($nome) ?>! Aqui você pode gerenciar suas atividades.</p>
 
     <form action="notas_adm.php" method="post">
         <button type="submit">Gerenciar Notas dos Alunos</button>
