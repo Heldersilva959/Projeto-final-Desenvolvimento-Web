@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
     }
     $hoje = new DateTime();
     $idade = $hoje->diff($data)->y;
-
+    
     // Inserção do usuário
     $sql_users = "INSERT INTO usuarios (nome, idade, email, cpf, senha, tipo) 
                   VALUES ('$nome', '$idade', '$email', '$cpf', '$senha', '$tipo')";
@@ -48,15 +48,26 @@ if (isset($_POST['submit'])) {
         $aluno_id = mysqli_insert_id($connection);
 
         // Vincular disciplinas
-        $sql_disciplinas = "SELECT id, fk_prof FROM disciplinas";
+        $sql_disciplinas = " SELECT 
+        d.id AS id_disciplina, 
+        d.nome AS nome_disciplina, 
+        u.nome AS nome_professor,
+        p.id AS id_professor
+    FROM 
+        disciplinas d
+    INNER JOIN prof_disc_turma pdt ON d.id = pdt.fk_disc
+    INNER JOIN professores p ON pdt.fk_prof = p.id
+    INNER JOIN usuarios u ON p.fk_user = u.id";
         $result_disciplinas = mysqli_query($connection, $sql_disciplinas);
 
         if ($result_disciplinas && mysqli_num_rows($result_disciplinas) > 0) {
             $disciplinas = mysqli_fetch_all($result_disciplinas, MYSQLI_ASSOC);
 
             foreach ($disciplinas as $disciplina) {
-                $disciplina_id = $disciplina['id'];
-                $prof_id = $disciplina['fk_prof'];
+                $disciplina_id = $disciplina['id_disciplina'];
+        $disciplina_nome = $disciplina['nome_disciplina'];
+        $professor_nome = $disciplina['nome_professor'];
+        $prof_id = $disciplina['id_professor'];
 
                 $sql_notas = "INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) 
                               VALUES (0, '2024-08-28', $aluno_id, $prof_id, $disciplina_id)";
@@ -71,6 +82,9 @@ if (isset($_POST['submit'])) {
             $sql_turma_alunos = "INSERT INTO turma_alunos (fk_aluno, fk_turma) 
                                  VALUES ($aluno_id, $turma)";
             mysqli_query($connection, $sql_turma_alunos);
+        }
+        else{
+            die("Turma não encontrada.");
         }
     }
     else if ($tipo == 'Professor') {
