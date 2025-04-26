@@ -202,11 +202,15 @@ if (isset($_POST['atualizar'])) {
     }
 
     foreach ($disciplinas_array as $disc) {
+        echo "<h4>Disciplina: {$disc['nome']}</h4>";
         foreach ($turmas_array as $turma) {
             $valor = "{$disc['id']}-{$turma['id']}";
             $checked = in_array($valor, $atuais) ? 'checked' : '';
-            echo "<label><input type='checkbox' name='disciplinas_turmas[]' value='$valor' $checked> {$disc['nome']} - {$turma['nome']}</label><br>";
+            echo "<label style='margin-left:20px;'>
+                    <input type='checkbox' name='disciplinas_turmas[]' value='$valor' $checked> {$turma['nome']}
+                  </label><br>";
         }
+        echo "<br>";
     }
     ?>
 <?php endif; ?>

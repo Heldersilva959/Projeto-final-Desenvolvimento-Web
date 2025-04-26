@@ -5,29 +5,21 @@ session_start();
 if (!isset($_SESSION['admin_id'])) {
     header("Location: index.html");
     exit;
-}
-else {
+} else {
     $admin_id = $_SESSION['admin_id'];
 }
 
-// Verifica se o usuário é um administrador
 // Processa a exclusão de usuário se houver requisição
 if (isset($_POST['deletar'])) {
     $usuario_id = $_POST['usuario_id'];
-    
-    // Primeiro verifica se não está tentando se auto-deletar
+
     if ($usuario_id != $admin_id) {
-        // Exclui o usuário
         $sql_delete = "DELETE FROM usuarios WHERE id = $usuario_id";
         mysqli_query($connection, $sql_delete);
-        
-        // Redireciona para a mesma página para atualizar a lista
         header("Location: gerenciar_usuarios.php");
     }
 }
 
-
-// Consulta todos os usuários exceto o administrador logado
 $sql = "SELECT id, nome, email, idade, cpf, tipo FROM usuarios WHERE id != $admin_id ORDER BY nome";
 $resultado = mysqli_query($connection, $sql);
 ?>
@@ -43,6 +35,10 @@ $resultado = mysqli_query($connection, $sql);
 <body>
     <div class="container">
         <h1>Gerenciamento de Usuários</h1>
+
+        <!-- Botão de cadastrar novos usuários -->
+       
+
         <?php if (mysqli_num_rows($resultado) > 0): ?>
             <table>
                 <thead>
@@ -77,8 +73,10 @@ $resultado = mysqli_query($connection, $sql);
         <?php else: ?>
             <p>Nenhum usuário cadastrado.</p>
         <?php endif; ?>
-        
-        <div style="text-align: center;">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="selecione_tipo.php" class="btn btn-voltar">Cadastrar Novos Usuários</a>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
             <a href="administrador.php" class="btn btn-voltar">Voltar</a>
         </div>
     </div>
