@@ -100,7 +100,7 @@ if (isset($_POST['submit'])) {
 <?php endif; ?>
 
 <h1>Cadastrar Novo Aluno</h1>
-<form action="cadastro.php" method="post">
+<form action="tipo_aluno.php" method="post">
     <label for="nome">Nome:</label>
     <input placeholder="Ex: João" class="inputCad" type="text" id="nome" name="nome" required>
 

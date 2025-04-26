@@ -80,7 +80,7 @@ $turmas_array = mysqli_fetch_all($turmas_query, MYSQLI_ASSOC);
 
 <h1>Cadastrar Novo Professor</h1>
 
-<form action="cadastro_professor.php" method="post">
+<form action="tipo_prof.php" method="post">
     <label for="nome">Nome:</label>
     <input placeholder="Ex: Maria Souza" class="inputCad" type="text" id="nome" name="nome" required>
 
