@@ -129,7 +129,8 @@ INSERT INTO usuarios VALUES
 (21, 'Daniel', 'daniel@gmail.com', 31, '009.456.789-00', '12345', 'Aluno'),
 (22, 'Bruno', 'bruno@gmail.com', 40, '010.456.789-00', '12345', 'Aluno'),
 (23, 'Fernando', 'fernando@gmail.com', 60, '011.456.789-00', '12345', 'Administrador'),
-(24, 'Fernanda', 'fernanda@gmail.com', 55, '012.456.789-00', '12345', 'Administrador');
+(24, 'Fernanda', 'fernanda@gmail.com', 55, '012.456.789-00', '12345', 'Administrador'),
+(25, 'James Silva', 'silva@gmail.com', 39, '013.456.789-00', '12345', 'Professor');
 UNLOCK TABLES;
 SELECT * FROM alunos WHERE fk_user = 1;
 LOCK TABLES disciplinas WRITE;
@@ -147,7 +148,7 @@ INSERT INTO disciplinas VALUES
 UNLOCK TABLES;
 -- Inserção de dados na tabela professores
 LOCK TABLES professores WRITE;
-INSERT INTO professores VALUES (1,7),(2,8); -- 1 relaciona com Nicholas e 2 relaciona com Jhonta
+INSERT INTO professores VALUES (1,7),(2,8),(3,25); -- 1 relaciona com Nicholas, 2 relaciona com Jhonta e 3 com James
 UNLOCK TABLES;
 
 LOCK TABLES administradores WRITE;
@@ -400,16 +401,19 @@ select * from turmas;
 
 -- Disciplinas 1 a 4 para professor 1
 INSERT INTO prof_disc_turma (fk_prof, fk_disc, fk_turma) VALUES
+
 (1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 1, 4),
 (1, 2, 1), (1, 2, 2), (1, 2, 3), (1, 2, 4),
 (1, 3, 1), (1, 3, 2), (1, 3, 3), (1, 3, 4),
 (1, 4, 1), (1, 4, 2), (1, 4, 3), (1, 4, 4),
 
--- Disciplinas 5 a 8 para professor 2
+-- Disciplinas 5 a 8 para professor 2 e 9 para prof 3
 (2, 5, 1), (2, 5, 2), (2, 5, 3), (2, 5, 4),
 (2, 6, 1), (2, 6, 2), (2, 6, 3), (2, 6, 4),
 (2, 7, 1), (2, 7, 2), (2, 7, 3), (2, 7, 4),
-(2, 8, 1), (2, 8, 2), (2, 8, 3), (2, 8, 4);
+(2, 8, 1), (2, 8, 2), (2, 8, 3), (2, 8, 4),
+
+(3, 9, 1), (3, 9, 2), (3, 9, 3), (3, 9, 4);
 
 
 /* -- Inserção de alunos nas turmas dividindo varios alunos em varias turmas
