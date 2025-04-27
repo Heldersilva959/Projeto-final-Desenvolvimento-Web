@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagina de gerência de notas do Administrador</title>
     <link rel="stylesheet" href="Style/notas.css">
-    <style>
-        
-    </style>
 </head>
 <body>
     <h1>BOLETIM GERAL DOS ALUNOS</h1>

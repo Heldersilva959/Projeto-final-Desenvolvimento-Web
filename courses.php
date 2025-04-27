@@ -1,3 +1,12 @@
+<?php 
+include_once("conexao.php");
+$sql = "SELECT nome, descricao, imagem FROM disciplinas";
+$result = mysqli_query($connection, $sql);
+
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +24,7 @@
         <img src="img/logo.png" alt="logo">  
         <nav>
             <ul class="nav-links">
-                <li><a href="home.html">Home</a></li>
+                <li><a href="home.php">Home</a></li>
                 <li><a href="about.html">Sobre nós</a></li>
                 <li><a href="courses.php">Cursos</a></li>
                 <li><a href="contact.html">Contato</a></li>
@@ -24,56 +33,32 @@
         <a class="btn-enter" href="index.html">Entrar</a>
     </header>
     
-    <section class="about">
-        <div class="about-container">
-            <div class="about-tittle">
-                <h1>Coude</h1>
-            </div>
-            <div class="about-box-line">
-                <h1>O que é a Coude?</h1>
-                <p>Coude é um método de ensino baseado em Microlearning, que utiliza pequenos módulos de aprendizagem, focando em tópicos específicos.<br>
-                É eficiente e flexível, ideal para aprender de forma rápida e prática.</p>
-            </div>
+    <section class="courses">
+        <div class="courses-title">
+            <h1>Explore nossos principais Cursos</h1>
+            <p>Aprenda habilidades práticas e transforme sua carreira com nossos cursos.</p>
+        </div>
+        <div class="courses-grid">
+            <?php if (mysqli_num_rows($result) > 0): ?>
+                <?php while($row = mysqli_fetch_assoc($result)): ?>
+                    <div class="course-card">
+                        <img src="<?php echo htmlspecialchars($row['imagem']); ?>" alt="Imagem do curso" width="602px" height="150px" style="object-fit: cover;">
+                        <h3><?php echo htmlspecialchars($row['nome']); ?></h3>
+                        <p><?php echo htmlspecialchars($row['descricao']); ?></p>
+                        <a href="contact.html" class="btn-course">Saiba mais</a>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>Nenhum curso disponível no momento.</p>
+            <?php endif; ?>
         </div>
     </section>
-    <section class="about-mission">
-        <div class="mission-container">
-            <div class="mission-title">
-                <h2>Nossa Missão</h2>
-            </div>
-            <div class="mission-content">
-                <p>Capacitar pessoas ao redor do mundo com habilidades práticas e conhecimentos em tecnologia, ajudando-as a alcançar seus objetivos profissionais e pessoais.</p>
-            </div>
-        </div>
-    </section>
-    <section class="about-values">
-        <div class="values-container">
-            <div class="values-title">
-                <h2>Nossos Valores</h2>
-            </div>
-            <div class="values-content">
-                <div class="value-item">
-                    <h3>Inovação</h3>
-                    <p>Estamos sempre buscando novas formas de ensinar e aprender, utilizando as melhores tecnologias disponíveis.</p>
-                </div>
-                <div class="value-item">
-                    <h3>Inclusão</h3>
-                    <p>Acreditamos que a educação deve ser acessível a todos, independentemente de suas origens ou experiências.</p>
-                </div>
-                <div class="value-item">
-                    <h3>Excelência</h3>
-                    <p>Nosso compromisso é oferecer conteúdos de alta qualidade para garantir o sucesso de nossos alunos.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
+
     <footer>
         <section class="line-footer">
             <div class="box-line-footer">
                 <img src="img/logo-br.png" alt="Logotipo">
-                <p>COUDE - Sua jornada na
-                    programação<br>começa aqui!</p>
+                <p>COUDE - Sua jornada na programação<br>começa aqui!</p>
             </div>
         
             <div class="box-line-footer">
@@ -110,3 +95,8 @@
     </footer>
 </body>
 </html>
+
+<?php
+// Fechar conexão
+mysqli_close($connection);
+?>

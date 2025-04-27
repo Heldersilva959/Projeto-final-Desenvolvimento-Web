@@ -81,7 +81,7 @@ ORDER BY turma,  aluno, disciplina;
                     echo "<td>$nota</td>";
                     echo "<td>$data</td>";
                     echo "<td>
-                            <form action='editar.php' method='post'>
+                            <form action='editar_notas.php' method='post'>
                                 <input type='hidden' name='nota_id' value='$nota_id'> 
                                 <input type='hidden' name='aluno_id' value='$aluno_id'>
                                 <input type='hidden' name='prof_id' value='$profId'>
