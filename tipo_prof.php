@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
     foreach ($disciplinasTurmasSelecionadas as $item) {
         list($disciplina_id, $turma_id) = explode('-', $item);
         
-        $sql = "INSERT INTO prof_disc_turma (id_professor, id_disciplina, id_turma) 
+        $sql = "INSERT INTO prof_disc_turma (fk_prof, fk_disc, fk_turma) 
                 VALUES ($professor_id, $disciplina_id, $turma_id)";
         mysqli_query($connection, $sql);
     }
