@@ -46,12 +46,12 @@ if (isset($_POST['submit'])) {
     foreach ($disciplinasTurmasSelecionadas as $item) {
         list($disciplina_id, $turma_id) = explode('-', $item);
         
-        $sql = "INSERT INTO professores_disciplinas_turmas (id_professor, id_disciplina, id_turma) 
+        $sql = "INSERT INTO prof_disc_turma (id_professor, id_disciplina, id_turma) 
                 VALUES ($professor_id, $disciplina_id, $turma_id)";
         mysqli_query($connection, $sql);
     }
 
-    header("Location: cadastro_professor.php?success=1");
+    header("Location: tipo_prof.php?success=1");
     exit;
 }
 

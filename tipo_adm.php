@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
 
     // Inserir usuário
     $sql_users = "INSERT INTO usuarios (nome, idade, email, cpf, senha, tipo) 
-                  VALUES ('$nome', '$idade', '$email', '$cpf', '$senha', 'Admnistrador')";
+                  VALUES ('$nome', '$idade', '$email', '$cpf', '$senha', 'Administrador')";
     $result_users = mysqli_query($connection, $sql_users);
 
     if (!$result_users) {
@@ -30,19 +30,19 @@ if (isset($_POST['submit'])) {
     $user_id = mysqli_insert_id($connection);
 
     // Inserir Admnistrador
-    $sql_Admnistradores = "INSERT INTO Admnistradores (fk_user) 
+    $sql_Admnistradores = "INSERT INTO Administradores (fk_user) 
                         VALUES ($user_id)";
     $result_Admnistradores = mysqli_query($connection, $sql_Admnistradores);
 
     if (!$result_Admnistradores) {
-        die("Erro ao cadastrar Admnistrador: " . mysqli_error($connection));
+        die("Erro ao cadastrar Administrador: " . mysqli_error($connection));
     }
 
     $Admnistrador_id = mysqli_insert_id($connection);
 
 
 
-    header("Location: cadastro_Admnistrador.php?success=1");
+    header("Location: tipo_adm.php?success=1");
     exit;
 }
 
@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
     <input placeholder="Ex: Maria Souza" class="inputCad" type="text" id="nome" name="nome" required>
 
     <label for="email">Email:</label>
-    <input placeholder="Ex: Admnistradora@gmail.com" class="inputCad" type="text" id="email" name="email" required>
+    <input placeholder="Ex: Administradora@gmail.com" class="inputCad" type="text" id="email" name="email" required>
 
     <label for="data">Data de Nascimento:</label>
     <input type="text" id="data_nascimento" class="inputCad" name="data_nascimento" placeholder="DD/MM/AAAA" pattern="\d{2}\/\d{2}\/\d{4}" required>

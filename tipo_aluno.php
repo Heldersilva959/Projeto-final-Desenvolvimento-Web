@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
     }
 
     // Redirecionamento com sucesso
-    header("Location: cadastro.php?success=1");
+    header("Location: tipo_aluno.php?success=1");
     exit;
 }
 ?>
