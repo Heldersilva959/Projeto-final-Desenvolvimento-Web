@@ -26,34 +26,25 @@ if (!isset($_SESSION['admin_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página do Professor</title>
+    <title>Página de seleção do tipo</title>
     <link rel="stylesheet" href="Style/admin.css">
 </head>
 <body>
-    <h1>Página do Administrador</h1>
-    <p>Bem-vindo, <?= htmlspecialchars($nome) ?>! Aqui você pode gerenciar suas atividades.</p>
+    <h1>Selecione o tipo do novo usuário: </h1>
 
-    <form action="notas_adm.php" method="post">
-        <button type="submit">Gerenciar Notas dos Alunos</button>
+    <form action="tipo_aluno.php" method="post">
+        <button type="submit">Aluno</button>
     </form>
+    <form action="tipo_prof.php" method="post">
+        <button type="submit">Professor</button>
+    </form>
+
+    <form action="tipo_adm.php" method="post">
+        <button type="submit">Administrador</button>
+    </form>
+
     <form action="gerenciar_usuarios.php" method="post">
-        <button type="submit">Gerenciar Usuários</button>
-    </form>
-
-    <form action="gerenciar_turma.php" method="post">
-        <button type="submit">Gerenciar Turmas</button>
-    </form>
-
-    <form action="gerenciar_disciplinas.php" method="post">
-        <button type="submit">Gerenciar Disciplinas</button>
-    </form>
-
-    <form action="relatorio.php" method="post"> 
-        <button type="submit">Gerar Relatório</button>
-    </form>
-
-    <form action="index.html" method="post">
-        <button type="submit">Deslogar</button> 
+        <button type="submit">Voltar</button>
     </form>
    
 </body>

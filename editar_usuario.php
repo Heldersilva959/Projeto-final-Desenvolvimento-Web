@@ -22,6 +22,10 @@ if (isset($_GET['id'])) {
     $resultado = mysqli_query($connection, $sql);
     $usuario = mysqli_fetch_assoc($resultado);
 
+    $sql_aluno = "SELECT id FROM alunos WHERE fk_user = $usuario_id";
+    $res_aluno = mysqli_query($connection, $sql_aluno);
+    $usuario_aluno = mysqli_fetch_assoc($res_aluno);
+
     if (!$usuario) {
         // Se o usuário não for encontrado
         echo "Usuário não encontrado!";
@@ -33,11 +37,12 @@ if (isset($_GET['id'])) {
         $turmas_array = mysqli_fetch_all($todas_turmas, MYSQLI_ASSOC);
 
         $turma_atual_id = null;
-        if ($usuario['tipo'] == 'Aluno') {
-            $res_turma = mysqli_query($connection, "SELECT fk_turma FROM turma_alunos WHERE fk_aluno = $usuario_id");
+        if ($usuario['tipo'] == 'Aluno' && $usuario_aluno) {
+            $res_turma = mysqli_query($connection, "SELECT fk_turma FROM turma_alunos WHERE fk_aluno = {$usuario_aluno['id']}");
             $row_turma = mysqli_fetch_assoc($res_turma);
             $turma_atual_id = $row_turma['fk_turma'] ?? null;
         }
+        
 // Atualizar os dados do usuário
 if (isset($_POST['atualizar'])) {
     $nome = $_POST['nome'];
@@ -68,15 +73,15 @@ if (isset($_POST['atualizar'])) {
 
         if ($turma_id) {
             // Verifica se já existe uma entrada na tabela turma_alunos
-            $verifica_turma = mysqli_query($connection, "SELECT * FROM turma_alunos WHERE fk_aluno = $usuario_id");
+            $verifica_turma = mysqli_query($connection, "SELECT * FROM turma_alunos WHERE fk_aluno = {$usuario_aluno['id']}");
 
             if (mysqli_num_rows($verifica_turma) > 0) {
                 // Atualiza a turma
-                $sql_update_turma = "UPDATE turma_alunos SET fk_turma = $turma_id WHERE fk_aluno = $usuario_id";
+                $sql_update_turma = "UPDATE turma_alunos SET fk_turma = $turma_id WHERE fk_aluno = {$usuario_aluno['id']}";
                 mysqli_query($connection, $sql_update_turma);
             } else {
                 // Insere novo vínculo
-                $sql_insert_turma = "INSERT INTO turma_alunos (fk_aluno, fk_turma) VALUES ($usuario_id, $turma_id)";
+                $sql_insert_turma = "INSERT INTO turma_alunos (fk_aluno, fk_turma) VALUES ({$usuario_aluno['id']}, $turma_id)";
                 mysqli_query($connection, $sql_insert_turma);
             }
         }
@@ -202,11 +207,15 @@ if (isset($_POST['atualizar'])) {
     }
 
     foreach ($disciplinas_array as $disc) {
+        echo "<h4>Disciplina: {$disc['nome']}</h4>";
         foreach ($turmas_array as $turma) {
             $valor = "{$disc['id']}-{$turma['id']}";
             $checked = in_array($valor, $atuais) ? 'checked' : '';
-            echo "<label><input type='checkbox' name='disciplinas_turmas[]' value='$valor' $checked> {$disc['nome']} - {$turma['nome']}</label><br>";
+            echo "<label style='margin-left:20px;'>
+                    <input type='checkbox' name='disciplinas_turmas[]' value='$valor' $checked> {$turma['nome']}
+                  </label><br>";
         }
+        echo "<br>";
     }
     ?>
 <?php endif; ?>
