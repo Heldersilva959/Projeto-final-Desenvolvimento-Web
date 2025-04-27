@@ -21,6 +21,8 @@ DROP TABLE IF EXISTS disciplinas;
 CREATE TABLE disciplinas (
   id INT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(30) NOT NULL,
+  descricao TEXT,
+  imagem VARCHAR(255),
   PRIMARY KEY (id)
   );
   
@@ -129,17 +131,19 @@ INSERT INTO usuarios VALUES
 (23, 'Fernando', 'fernando@gmail.com', 60, '011.456.789-00', '12345', 'Administrador'),
 (24, 'Fernanda', 'fernanda@gmail.com', 55, '012.456.789-00', '12345', 'Administrador');
 UNLOCK TABLES;
-
+SELECT * FROM alunos WHERE fk_user = 1;
 LOCK TABLES disciplinas WRITE;
 INSERT INTO disciplinas VALUES 
-(1,'BANCO DE DADOS'), 
-(2,'LINGUAGEM PHP'),
-(3,'HTML'), 
-(4,'CSS'),
-(5,'JAVASCRIPT'),
-(6,'GIT E GITHUB'),
-(7,'JQUERY'),
-(8,'BOOTSTRAP');
+(1,'BANCO DE DADOS', 'Aprenda a gerenciar bancos de dados com eficiência e domine as consultas SQL.', 'img/sql.jpg'), 
+(2,'LINGUAGEM PHP', 'Desenvolva aplicações web dinâmicas com uma das linguagens mais populares.', 'img/php.jpg'),
+(3,'HTML', 'Conheça a linguagem padrão usada para criar e estruturar páginas na web, definindo elementos como textos, imagens e links.', 'img/html.jpg'), 
+(4,'CSS', 'Aprenda a estilizar com a maior linguagem de estilo das páginas web', 'img/css.png'),
+(5,'JAVASCRIPT', 'Domine a linguagem de programação que dá vida às páginas web.', 'img/js.jpg'),
+(6,'GIT E GITHUB', 'Controle de versão e colaboração em projetos com Git e GitHub.', 'img/git.png'),
+(7,'JQUERY', 'Simplifique a manipulação do DOM e torne suas páginas mais dinâmicas.', 'img/jquery.jpg'),
+(8,'BOOTSTRAP', 'Desenvolva sites responsivos usando o framework CSS mais popular do mercado.', 'img/bootstrap.jpg'),
+(9,'INGLES', 'Aprenda o idioma mais utilizado no mundo da tecnologia e amplie suas oportunidades.', 'img/ingles.jpg')
+;
 UNLOCK TABLES;
 -- Inserção de dados na tabela professores
 LOCK TABLES professores WRITE;
@@ -176,7 +180,8 @@ INSERT INTO alunos VALUES
 UNLOCK TABLES;
 
 -- Inserção de dados na tabela disciplinas
-
+use sistema_esc;
+SELECT tipo FROM usuarios WHERE id = 8;
 
 -- Inserção de dados na tabela notas
 LOCK TABLES notas WRITE;
@@ -390,6 +395,7 @@ INSERT INTO turmas (id, nome) VALUES
 (3, 'Turma C'), 
 (4, 'Turma D'); 
 
+select * from turmas;
 
 
 -- Disciplinas 1 a 4 para professor 1
