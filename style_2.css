@@ -260,6 +260,7 @@ h1 {
 
 .card-list .card-item .card-link {
     width: 400px;
+    height: 450px;
     display: block;
     background: #ffffff;
     padding: 18px;
@@ -456,6 +457,7 @@ footer button {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: 200vh;
 }
 
 .container-form p {
@@ -751,7 +753,7 @@ footer button {
 }
 
 .course-card img {
-    width: 100%;
+    width: 30vh;
     border-radius: 10px;
     margin-bottom: 15px;
 }
@@ -816,7 +818,9 @@ footer button {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 780px) {
+    
     .courses{
         margin: 0px;
     }
@@ -838,7 +842,7 @@ footer button {
         width: 100%;
         height: 100%;
         display: block;
-        align-items: center;
+        align-items: center; 
         justify-content: center;
         text-align: center;
     }
@@ -884,76 +888,6 @@ footer button {
     }
 
 }
-
-@media screen and (max-width: 768px) {
-    footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 20px;
-    }
-
-    .line-footer {
-        flex-direction: column;
-        gap: 20px;
-        width: 100%;
-    }
-
-    .box-line-footer {
-        max-width: 100%;
-        min-width: auto;
-    }
-
-    .box-line-footer img {
-        margin: 0 auto;
-    }
-
-    .box-line-footer .links-footer {
-        text-align: center;
-    }
-
-    .box-line-footer .btn-redes ul {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-    .intro-launcher p {
-        font-size: 18px;
-        margin-top: 10px;
-    }
-
-    .courses {
-        margin: 0;
-        padding: 20px;
-    }
-
-    .courses-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-
-    .course-card {
-        max-width: 100%;
-    }
-
-    .stats-section {
-        grid-template-columns: repeat(1, 1fr);
-    }
-
-    .stat {
-        width: 100px;
-        height: 100px;
-    }
-
-    .number {
-        font-size: 1.8rem;
-    }
-
-    .stat p {
-        font-size: 11px;
-    }
-}
-
 @media screen and (max-width: 780px) {
     footer {
         padding: 15px;
@@ -1035,7 +969,7 @@ footer button {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
-        height: 40em;
+        height: 30em;
     }
     .p-line-intro{
         margin-bottom: 2em;
@@ -1057,6 +991,10 @@ footer button {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    .card-list{
+        width: 50%;
+        height: 50%;
     }
 }
 
