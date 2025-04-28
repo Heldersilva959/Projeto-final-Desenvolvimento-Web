@@ -38,6 +38,7 @@ if (mysqli_num_rows($result) > 0) {
                 <li><a href="contact.html">Contato</a></li>
             </ul>
         </nav>
+        
         <a class="btn-enter" href="index.html">Entrar</a>
     </header>
     
