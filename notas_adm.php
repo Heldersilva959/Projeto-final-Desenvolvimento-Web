@@ -15,7 +15,7 @@
     session_start();
     
     if (!isset($_SESSION['admin_id'])) {
-        header("Location: index.html");
+        header("Location: login.html");
         exit();
     } else {
         $adminId = $_SESSION['admin_id'];

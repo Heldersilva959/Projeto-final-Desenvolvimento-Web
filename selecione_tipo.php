@@ -2,7 +2,7 @@
 include_once("conexao.php");
 session_start();
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: index.html");
+    header("Location: login.html");
 } else {
     $adminId = $_SESSION['admin_id'];
     $sql = "SELECT nome, tipo FROM usuarios WHERE id = $adminId";
@@ -12,7 +12,7 @@ if (!isset($_SESSION['admin_id'])) {
         $tipo = $row['tipo'];
         $nome = $row['nome'];
         if ($tipo != 'Administrador') {
-            header("Location: index.html");
+            header("Location: login.html");
             exit();
         }
     } else {
@@ -49,4 +49,3 @@ if (!isset($_SESSION['admin_id'])) {
    
 </body>
 </html>
-

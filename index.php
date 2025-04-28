@@ -32,14 +32,13 @@ if (mysqli_num_rows($result) > 0) {
         <img src="img/logo.png" alt="logo">
         <nav>
             <ul class="nav-links">
-                <li><a href="home.php">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="about.html">Sobre nós</a></li>
                 <li><a href="courses.php">Cursos</a></li>
                 <li><a href="contact.html">Contato</a></li>
             </ul>
         </nav>
-        
-        <a class="btn-enter" href="index.html">Entrar</a>
+        <a class="btn-enter" href="login.html">Entrar</a>
     </header>
     
     <section class="intro-section">

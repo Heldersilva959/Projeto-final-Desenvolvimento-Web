@@ -5,13 +5,13 @@ require 'conexao.php'; // $connection deve estar definido com mysqli_connect
 if (mysqli_connect_errno()) {
     die("<script>
         alert('Erro ao conectar ao banco de dados.');
-        window.location.href = 'index.html';
+        window.location.href = 'login.html';
     </script>");
 }
 
 // Verifica se o método é POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: index.html');
+    header('Location: login.html');
     exit;
 }
 
@@ -118,7 +118,7 @@ if ($error) {
     mysqli_commit($connection);
     echo "<script>
         alert('Senha alterada com sucesso!');
-        window.location.href = 'index.html';
+        window.location.href = 'login.html';
     </script>";
 }
 
