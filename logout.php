@@ -10,7 +10,7 @@
    <div>
       <h1>Erro</h1>  
       <p>Dados incorretos. Tente novamente.</p><br>
-      <a href="index.html">Voltar para a página de login</a>
+      <a href="login.html">Voltar para a página de login</a>
 <?php
 session_start();
 session_destroy();

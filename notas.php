@@ -18,7 +18,7 @@
     session_start();
     
     if (!isset($_SESSION['prof_id'])) {
-        header("Location: index.html");
+        header("Location: login.html");
         exit();
     } else {
         $profId = $_SESSION['prof_id'];

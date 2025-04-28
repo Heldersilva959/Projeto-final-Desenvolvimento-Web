@@ -2,7 +2,7 @@
 include_once("conexao.php");
 session_start();
 if (!isset($_SESSION['aluno_id'])) {
-    header("Location: index.html");
+    header("Location: login.html");
     exit;
 }
 else{
@@ -15,7 +15,7 @@ if ($consulta) {
     $nome = $row['nome'];
     $cpf = $row['cpf'];
     if ($tipo != 'Aluno') {
-        header("Location: index.html");
+        header("Location: login.html");
         exit;
     }
     $sql_aluno = "SELECT id FROM alunos WHERE fk_user = $alunoId";
@@ -123,7 +123,7 @@ WHERE
     </div>
 
     <br><br>
-    <form class="deslogar" action="index.html" method="post">
+    <form class="deslogar" action="login.html" method="post">
         <button class="botao" type="submit">Deslogar</button> 
     </form>
 </body>

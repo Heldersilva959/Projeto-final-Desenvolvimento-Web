@@ -3,7 +3,7 @@ include("conexao.php");
 session_start();
 
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: index.html");
+    header("Location: login.html");
     exit;
 } else {
     $admin_id = $_SESSION['admin_id'];

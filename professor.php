@@ -3,7 +3,7 @@ include_once("conexao.php");
 session_start();
 if (!isset($_SESSION['prof_id'])) {
     
-    header("Location: index.html");
+    header("Location: login.html");
 }
 else {
     $profId = $_SESSION['prof_id'];
@@ -14,7 +14,7 @@ else {
         $tipo = $row['tipo'];
         $nome = $row['nome'];
         if ($tipo != 'Professor') {
-            header("Location: index.html");
+            header("Location: login.html");
             exit();
         }
     } else {
@@ -39,7 +39,7 @@ else {
     <form action="notas.php" method="post">
         <button type="submit">Ver Notas dos Alunos</button>
     </form>
-    <form action="index.html" method="post">
+    <form action="login.html" method="post">
         <button type="submit">Deslogar</button> 
     </form>
 </body>
