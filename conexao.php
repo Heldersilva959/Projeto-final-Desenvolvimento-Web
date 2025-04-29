@@ -1,8 +1,8 @@
 <?php
-$hostname = $_ENV['DB_HOST'];;
-$bancodedados = $_ENV['DB_NAME'];;
-$usuario = "DB_USER";
-$senha = "DB_PASS";
+$hostname = $_ENV['DB_HOST'];
+$bancodedados = $_ENV['DB_NAME'];
+$usuario = $_ENV["DB_USER"];
+$senha = $_ENV["DB_PASS"];
 
 // conectando:
 
