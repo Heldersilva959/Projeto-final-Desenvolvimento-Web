@@ -86,7 +86,7 @@ if (mysqli_num_rows($result) > 0) {
             <div class="card-wrapper swiper">
                 <ul class="card-list swiper-wrapper">
                     <?php foreach ($disciplinas as $disciplina): ?>
-                        <li class="card-item swiper-slide">
+                        <li class="card-item swiper-slide" >
                             <a href="courses.php" class="card-link">
                                 <img src="<?php echo htmlspecialchars($disciplina['imagem']); ?>" alt="Imagem do curso" class="card-image" style="object-fit: cover;">
                                 <p class="badge"><?php echo htmlspecialchars($disciplina['nome']); ?></p>
