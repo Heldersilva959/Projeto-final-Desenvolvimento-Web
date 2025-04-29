@@ -71,7 +71,7 @@ ORDER BY turma, aluno, disciplina;
                 echo "<td>$nota</td>";
                 echo "<td>$data</td>";
                 echo "<td>
-                        <form action='editar_notas.php' method='post'>
+                        <form action='editar_notas_adm.php' method='post'>
                             <input type='hidden' name='nota_id' value='$nota_id'> 
                             <input type='text' name='nova_nota' value='$nota'>
                             <button type='submit'>Atualizar</button>
