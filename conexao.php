@@ -1,14 +1,15 @@
 <?php
-/*
+
 $hostname = $_ENV['DB_HOST'];
 $bancodedados = $_ENV['DB_NAME'];
 $usuario = $_ENV["DB_USER"];
 $senha = $_ENV["DB_PASS"];
-*/
+/*
 $hostname = "localhost";
 $bancodedados = "sistema_esc";
 $usuario = "root";
 $senha = "";
+*/
 // conectando:
 
 $connection = mysqli_connect($hostname, $usuario, $senha, $bancodedados);
