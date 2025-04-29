@@ -457,7 +457,7 @@ footer button {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 200vh;
+    height: 100vh;
 }
 
 .container-form p {
