@@ -69,10 +69,14 @@
 <h2>📷 Imagens do Projeto </h2>
 <p>
   Prints de telas do sistema a seguir:<br>
-  <img src="" alt="Tela inicial" width="600"><br>
-    <img src="" alt="Login" width="600"><br>
-      <img src="" alt="Área do Aluno" width="600"><br>
-  <img src="" alt="Área do Professor" width="600">
+  <img src="img/home.png" alt="Tela inicial" width="600"><br>
+  <img src="img/about.png" alt="Sobre nós" width="600"><br>
+  <img src="img/cursos.png" alt="Cursos" width="600"><br>
+   <img src="img/contact.png" alt="Contato" width="600"><br>
+  <img src="img/login.png" alt="Login" width="600"><br>
+  <img src="img/aluno.png" alt="Área do Aluno" width="600"><br>
+  <img src="img/professor.png" alt="Área do Professor" width="600">
+    <img src="img/adm.png" alt="Área do Administrador" width="600">
 </p>
 
 <hr>
